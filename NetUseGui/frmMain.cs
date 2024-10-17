@@ -28,7 +28,7 @@ namespace NetUseGui
     public partial class frmMain : Form
     {
         public const string MainWindowTitelBase = "Net Use";
-        private string MessageBoxTile = String.Empty;
+        private string MessageBoxTitle = String.Empty;
 
         private bool UpdatingGuiActive = false;
 
@@ -47,7 +47,7 @@ namespace NetUseGui
 
 
             this.Text = MainWindowTitelBase;
-            this.MessageBoxTile = MainWindowTitelBase;
+            this.MessageBoxTitle = MainWindowTitelBase;
 
             this.cbDeviceLetter.Items.Clear();
             this.cbDeviceLetter.Items.AddRange(MakeDeviceNameList());
@@ -147,7 +147,7 @@ namespace NetUseGui
 
             if (CheckForInvalidChar(tbShareName.Text, false, true, true, InvalidShareNameChars, out usedInvalidChars))
             {
-                MessageBox.Show($"Warning: The entered network share name contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Warning: The entered network share name contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 tbShareName.Text = String.Empty;
             }
@@ -162,7 +162,7 @@ namespace NetUseGui
 
             if (CheckForInvalidChar(tbUserName.Text, false, true, true, InvalidUserNameChars, out usedInvalidChars))
             {
-                MessageBox.Show($"Warning: The entered user name contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Warning: The entered user name contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 tbUserName.Text = String.Empty;
             }
@@ -177,7 +177,7 @@ namespace NetUseGui
 
             if (CheckForInvalidChar(tbUserPw.Text, false, true, true, InvalidUserPasswordChars, out usedInvalidChars))
             {
-                MessageBox.Show($"Warning: The entered password contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Warning: The entered password contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 tbUserPw.Text = String.Empty;
             }
@@ -383,16 +383,47 @@ namespace NetUseGui
             NetConfigData netConfigData = BuildNetConfigData();
 
 
-            commonResult = RunCommand(netConfigData);
-
-
-            if (commonResult.Success)
+            // Make some basic checks, before executing the net use command.
+            if (rbConnectShare.Checked)
             {
-                MessageBox.Show("The Net Use command was executed without problems.", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (tbShareName.Text.Length < 5)
+                {
+                    // Minimum 5 chars are expected for share name: "\\x\y"
+                    MessageBox.Show("The entered network share name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+
+                if (tbUserName.Text.Length == 0)
+                {
+                    MessageBox.Show("The entered user name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+
+                if (tbUserPw.Text.Length == 0)
+                {
+                    MessageBox.Show("The entered user name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
             }
             else
             {
-                MessageBox.Show($"The Net Use command was executed with errors!\n\nErrormessage:\n{commonResult.Message}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (tbShareName.Text.Length < 5)
+                {
+                    // Minimum 5 chars are expected for share name: "\\x\y"
+                    MessageBox.Show ("The entered network share name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+            }
+
+            commonResult = RunCommand(netConfigData);
+
+            if (commonResult.Success)
+            {
+                MessageBox.Show("The Net Use command was executed without problems.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show($"The Net Use command was executed with errors!\n\nErrormessage:\n{commonResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -407,17 +438,17 @@ namespace NetUseGui
 
             if (commonResult.Success)
             {
-                MessageBox.Show("File extension has been registered.", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("File extension has been registered.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 if (commonResult.ErrorCode == CommonResult.ErrorResultCodes.E_UnauthorizedAccessException)
                 {
-                    MessageBox.Show(commonResult.Message, this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(commonResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    MessageBox.Show(commonResult.Message, this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(commonResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -454,9 +485,9 @@ namespace NetUseGui
             panelStart.Visible = !showMainPanel;
             panelEdit.Visible = showMainPanel;
 
-            btnMenStrip_Save.Enabled = true;
-            btnMenStrip_SaveAs.Enabled = true;
-            btnMenStrip_RunCmd.Enabled = true;
+            btnMenStrip_Save.Enabled = showMainPanel;
+            btnMenStrip_SaveAs.Enabled = showMainPanel;
+            btnMenStrip_RunCmd.Enabled = showMainPanel;
         }
 
 
@@ -580,7 +611,7 @@ namespace NetUseGui
         {
             if (this.CurrentNetConfigurationFileChanged == true)
             {
-                DialogResult result = MessageBox.Show("The settings have been changed but not saved yet!\n\nShould the settings be saved first ?", this.MessageBoxTile, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+                DialogResult result = MessageBox.Show("The settings have been changed but not saved yet!\n\nShould the settings be saved first ?", this.MessageBoxTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
 
                 switch (result)
                 {
@@ -797,7 +828,7 @@ namespace NetUseGui
                     {
                         if (showMessageDialogOnError)
                         {
-                            MessageBox.Show($"An error occurred while loading a NetUse Configuration file!\n\nReason:\n{loadResult.Message}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"An error occurred while loading a NetUse Configuration file!\n\nReason:\n{loadResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         return loadResult;
@@ -812,7 +843,7 @@ namespace NetUseGui
             {
                 if (showMessageDialogOnError)
                 {
-                    MessageBox.Show($"An exeption occurred while loading a NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"An exeption occurred while loading a NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 return CommonResult.MakeExeption(ex.Message);
@@ -843,7 +874,7 @@ namespace NetUseGui
                 {
                     if (showMessageDialogOnError)
                     {
-                        MessageBox.Show($"An error occurred while loading a NetUse Configuration file!\n\nReason:\n{loadResult.Message}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"An error occurred while loading a NetUse Configuration file!\n\nReason:\n{loadResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     return loadResult;
@@ -853,7 +884,7 @@ namespace NetUseGui
             {
                 if (showMessageDialogOnError)
                 {
-                    MessageBox.Show($"An exeption occurred while loading a NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"An exeption occurred while loading a NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 return CommonResult.MakeExeption(ex.Message);
@@ -900,7 +931,7 @@ namespace NetUseGui
                     {
                         if (showMessageDialogOnError)
                         {
-                            MessageBox.Show($"An error occurred while writing a new NetUse Configuration file!\n\nReason:\n{writeResult.Message}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"An error occurred while writing a new NetUse Configuration file!\n\nReason:\n{writeResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         return writeResult;
@@ -915,7 +946,7 @@ namespace NetUseGui
             {
                 if (showMessageDialogOnError)
                 {
-                    MessageBox.Show($"An exeption occurred while writing data to new NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"An exeption occurred while writing data to new NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 return CommonResult.MakeExeption(ex.Message);
@@ -946,7 +977,7 @@ namespace NetUseGui
                 {
                     if (showMessageDialogOnError)
                     {
-                        MessageBox.Show($"An error occurred while writing a NetUse Configuration file!\n\nReason:\n{writeResult.Message}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"An error occurred while writing a NetUse Configuration file!\n\nReason:\n{writeResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     return writeResult;
@@ -956,7 +987,7 @@ namespace NetUseGui
             {
                 if (showMessageDialogOnError)
                 {
-                    MessageBox.Show($"An exeption occurred while writing data to NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTile, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"An exeption occurred while writing data to NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 return CommonResult.MakeExeption(ex.Message);
