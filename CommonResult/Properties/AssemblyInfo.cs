@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("CommonResult")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Net Use Commonlib")]
+[assembly: AssemblyDescription("Program to manage network shares with help of the Microsoft(c) command line tool NET")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CommonResult")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
+[assembly: AssemblyCompany("X13-G44")]
+[assembly: AssemblyProduct("Net Use")]
+[assembly: AssemblyCopyright("Copyright © 2024 X13-G44")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

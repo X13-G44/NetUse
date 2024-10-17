@@ -455,6 +455,14 @@ namespace NetUseGui
 
 
 
+        private void btnMenStrip_About_Click(object sender, EventArgs e)
+        {
+            frmAboutBox aboutBox = new frmAboutBox();
+            aboutBox.ShowDialog();
+        }
+
+
+
         #endregion
 
 

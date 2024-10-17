@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("NetUseGui")]
-[assembly: AssemblyDescription("Programm to use the commandline NET USE")]
+[assembly: AssemblyDescription("Program to manage network shares with help of the Microsoft(c) command line tool NET")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("X13-G44.xom")]
-[assembly: AssemblyProduct("NetUseGui")]
-[assembly: AssemblyCopyright("Copyright © X13-G44 2024")]
+[assembly: AssemblyCompany("X13-G44")]
+[assembly: AssemblyProduct("Net Use")]
+[assembly: AssemblyCopyright("Copyright ©  2024 X13-G44")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

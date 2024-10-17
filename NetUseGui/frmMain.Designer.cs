@@ -43,7 +43,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnMenStrip_RunCmd = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMenStrip_About = new System.Windows.Forms.ToolStripMenuItem();
             this.panelStart = new System.Windows.Forms.Panel();
             this.btnStartPanel_Open = new System.Windows.Forms.Button();
             this.btnStartPanel_MakeNew = new System.Windows.Forms.Button();
@@ -198,17 +198,18 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.infoToolStripMenuItem});
+            this.btnMenStrip_About});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // infoToolStripMenuItem
+            // btnMenStrip_About
             // 
-            this.infoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("infoToolStripMenuItem.Image")));
-            this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            this.infoToolStripMenuItem.Size = new System.Drawing.Size(95, 22);
-            this.infoToolStripMenuItem.Text = "Info";
+            this.btnMenStrip_About.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_About.Image")));
+            this.btnMenStrip_About.Name = "btnMenStrip_About";
+            this.btnMenStrip_About.Size = new System.Drawing.Size(180, 22);
+            this.btnMenStrip_About.Text = "Info";
+            this.btnMenStrip_About.Click += new System.EventHandler(this.btnMenStrip_About_Click);
             // 
             // panelStart
             // 
@@ -592,7 +593,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnMenStrip_RegFileExt;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnMenStrip_About;
         private System.Windows.Forms.Panel panelStart;
         private System.Windows.Forms.Button btnStartPanel_Open;
         private System.Windows.Forms.Button btnStartPanel_MakeNew;
