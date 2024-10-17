@@ -35,8 +35,8 @@ namespace NetUseGui
         private bool CurrentNetConfigurationFileChanged = false;
         private NetConfigFile CurrentNetConfigurationFile = null;
 
-        private char[] InvalidShareNameChars = new char[] { ' ', '/', '@' };
-        private char[] InvalidUserNameChars = new char[] { ' ', '/', '@' };
+        private char[] InvalidShareNameChars = new char[] { ' ', '/', ':', '*', '?','"','<','>','|' };
+        private char[] InvalidUserNameChars = new char[] { ' ', '"', '/', '\\', '[', ']', ':', ';', '|', '=', ',', '+', '*', '?', '<', '>' };
         private char[] InvalidUserPasswordChars = new char[] { ' ' };
 
 
