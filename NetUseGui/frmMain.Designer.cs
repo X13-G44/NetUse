@@ -100,7 +100,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(377, 24);
-            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
@@ -207,7 +207,7 @@
             // 
             this.btnMenStrip_About.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_About.Image")));
             this.btnMenStrip_About.Name = "btnMenStrip_About";
-            this.btnMenStrip_About.Size = new System.Drawing.Size(180, 22);
+            this.btnMenStrip_About.Size = new System.Drawing.Size(95, 22);
             this.btnMenStrip_About.Text = "Info";
             this.btnMenStrip_About.Click += new System.EventHandler(this.btnMenStrip_About_Click);
             // 
@@ -275,7 +275,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(377, 25);
-            this.toolStrip1.TabIndex = 2;
+            this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // btnToolMen_MakeNew
@@ -350,7 +350,7 @@
             this.gb2.Location = new System.Drawing.Point(12, 123);
             this.gb2.Name = "gb2";
             this.gb2.Size = new System.Drawing.Size(350, 102);
-            this.gb2.TabIndex = 2;
+            this.gb2.TabIndex = 1;
             this.gb2.TabStop = false;
             this.gb2.Text = "Net Share";
             // 
@@ -360,7 +360,7 @@
             this.cbDisconnectFirst.Location = new System.Drawing.Point(111, 75);
             this.cbDisconnectFirst.Name = "cbDisconnectFirst";
             this.cbDisconnectFirst.Size = new System.Drawing.Size(15, 14);
-            this.cbDisconnectFirst.TabIndex = 4;
+            this.cbDisconnectFirst.TabIndex = 2;
             this.cbDisconnectFirst.UseVisualStyleBackColor = true;
             this.cbDisconnectFirst.CheckedChanged += new System.EventHandler(this.onGuiElementChange);
             // 
@@ -381,7 +381,7 @@
             this.tbShareName.MaxLength = 128;
             this.tbShareName.Name = "tbShareName";
             this.tbShareName.Size = new System.Drawing.Size(212, 20);
-            this.tbShareName.TabIndex = 3;
+            this.tbShareName.TabIndex = 1;
             this.tbShareName.Text = "\\\\server\\share\\";
             this.tbShareName.TextChanged += new System.EventHandler(this.onGuiElementChange);
             this.tbShareName.Leave += new System.EventHandler(this.tbShareName_Leave);
@@ -398,7 +398,7 @@
             this.cbDeviceLetter.Location = new System.Drawing.Point(111, 17);
             this.cbDeviceLetter.Name = "cbDeviceLetter";
             this.cbDeviceLetter.Size = new System.Drawing.Size(38, 21);
-            this.cbDeviceLetter.TabIndex = 2;
+            this.cbDeviceLetter.TabIndex = 0;
             this.cbDeviceLetter.Text = "Z";
             this.cbDeviceLetter.SelectedIndexChanged += new System.EventHandler(this.onGuiElementChange);
             // 
@@ -443,7 +443,7 @@
             this.tbUserPw.Name = "tbUserPw";
             this.tbUserPw.PasswordChar = '•';
             this.tbUserPw.Size = new System.Drawing.Size(212, 20);
-            this.tbUserPw.TabIndex = 3;
+            this.tbUserPw.TabIndex = 1;
             this.tbUserPw.Text = "MyPassword";
             this.tbUserPw.TextChanged += new System.EventHandler(this.onGuiElementChange);
             this.tbUserPw.Leave += new System.EventHandler(this.tbUserPw_Leave);
@@ -455,7 +455,7 @@
             this.tbUserName.MaxLength = 128;
             this.tbUserName.Name = "tbUserName";
             this.tbUserName.Size = new System.Drawing.Size(212, 20);
-            this.tbUserName.TabIndex = 3;
+            this.tbUserName.TabIndex = 0;
             this.tbUserName.Text = "testpersion@server.com";
             this.tbUserName.TextChanged += new System.EventHandler(this.onGuiElementChange);
             this.tbUserName.Leave += new System.EventHandler(this.tbUserName_Leave);
@@ -499,7 +499,7 @@
             this.gb1.Location = new System.Drawing.Point(12, 37);
             this.gb1.Name = "gb1";
             this.gb1.Size = new System.Drawing.Size(350, 80);
-            this.gb1.TabIndex = 4;
+            this.gb1.TabIndex = 0;
             this.gb1.TabStop = false;
             this.gb1.Text = "Operation";
             // 
@@ -509,7 +509,7 @@
             this.rbDisconnectShare.Location = new System.Drawing.Point(16, 50);
             this.rbDisconnectShare.Name = "rbDisconnectShare";
             this.rbDisconnectShare.Size = new System.Drawing.Size(142, 17);
-            this.rbDisconnectShare.TabIndex = 0;
+            this.rbDisconnectShare.TabIndex = 1;
             this.rbDisconnectShare.TabStop = true;
             this.rbDisconnectShare.Text = "Disconnect from a Share";
             this.rbDisconnectShare.UseVisualStyleBackColor = true;
