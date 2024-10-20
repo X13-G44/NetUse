@@ -16,30 +16,31 @@ namespace NetUse.Common
         public enum ErrorResultCodes
         {
             /// <summary>
-            /// Generel success
+            /// GeneGeneralrel success
             /// </summary>
             Success = 0,
 
             /// <summary>
-            /// Generel (user) abort error
+            /// General (user) abort error
             /// </summary>
             E_Abort = (int.MinValue + 2),
 
             /// <summary>
-            /// Generel exeption error
+            /// General exception error
             /// </summary>
             E_Exeption = (int.MinValue + 1),
 
             /// <summary>
-            /// Generel unknown error
+            /// General unknown error
             /// </summary>
             E_Unknown = int.MinValue,
 
 
 
-            #region Programm::CheckArgAndLoadNetCfgFile
+            #region Program::CheckArgAndLoadNetCfgFile
 
             E_CntOfStartParam = -5,
+            E_CfgFileNotFound = -6,
 
             #endregion
 
@@ -95,9 +96,9 @@ namespace NetUse.Common
         public ErrorResultCodes ErrorCode { get; private set; }
 
         /// <summary>
-        /// When set, a (fatal) exeption has been occured.
+        /// When set, a (fatal) exception has been occurred.
         /// </summary>
-        public bool ExeptionOccurred { get; private set; }
+        public bool ExceptionOccurred { get; private set; }
 
         /// <summary>
         /// Result message. Usually an error description for the user.
@@ -111,22 +112,22 @@ namespace NetUse.Common
 
 
 
-        public CommonResult()
+        public CommonResult ()
         {
             this.Success = false;
             this.ErrorCode = ErrorResultCodes.E_Unknown;
-            this.ExeptionOccurred = false;
+            this.ExceptionOccurred = false;
             this.Message = string.Empty;
             this.Data = null;
         }
 
 
 
-        public CommonResult(bool success, ErrorResultCodes errorCode, bool exeptionOccurred, string message, Object data) : base()
+        public CommonResult (bool success, ErrorResultCodes errorCode, bool exeptionOccurred, string message, Object data) : base ()
         {
             this.Success = success;
             this.ErrorCode = errorCode;
-            this.ExeptionOccurred = exeptionOccurred;
+            this.ExceptionOccurred = exeptionOccurred;
             this.Message = message;
             this.Data = data;
         }
@@ -139,9 +140,9 @@ namespace NetUse.Common
         /// <param name="data">Returned data object from function</param>
         /// <param name="message">Returned message from function</param>
         /// <returns></returns>
-        public static CommonResult MakeSuccess(Object data = null, string message = "")
+        public static CommonResult MakeSuccess (Object data = null, string message = "")
         {
-            return new CommonResult(true, 0, false, message, data);
+            return new CommonResult (true, 0, false, message, data);
         }
 
 
@@ -153,21 +154,21 @@ namespace NetUse.Common
         /// <param name="message">Error message</param>
         /// <param name="data">Returned data object from function</param>
         /// <returns></returns>
-        public static CommonResult MakeError(ErrorResultCodes errorCode, string message, Object data = null)
+        public static CommonResult MakeError (ErrorResultCodes errorCode, string message, Object data = null)
         {
-            return new CommonResult(false, errorCode, false, message, data);
+            return new CommonResult (false, errorCode, false, message, data);
         }
 
 
 
         /// <summary>
-        /// Create a "Exeption" CommonResult object.
+        /// Create a "Exception" CommonResult object.
         /// </summary>
         /// <param name="message">Error message</param>
         /// <returns></returns>
-        public static CommonResult MakeExeption(string message)
+        public static CommonResult MakeExeption (string message)
         {
-            return new CommonResult(false, ErrorResultCodes.E_Exeption, true, message, null);
+            return new CommonResult (false, ErrorResultCodes.E_Exeption, true, message, null);
         }
     }
 }

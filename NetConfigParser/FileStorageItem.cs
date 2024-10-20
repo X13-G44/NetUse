@@ -32,9 +32,9 @@ namespace NetUse.NetConfigFile
 
 
         /// <summary>
-        /// Method of data cryption.
+        /// Method of data encryption.
         /// </summary>
-        public int CryptionMethod { get; set; }
+        public int EncryptionMethod { get; set; }
 
 
         /// <summary>
@@ -71,13 +71,13 @@ namespace NetUse.NetConfigFile
 
 
 
-        public FileStorageItem()
+        public FileStorageItem ()
         {
             this.ClassVersion = 0;
 
             this.OnlyDisconnect = false;
 
-            this.CryptionMethod = 0;
+            this.EncryptionMethod = 0;
             this.DeviceName = 'Z';
             this.ShareName = String.Empty;
             this.UserName = String.Empty;
@@ -90,20 +90,20 @@ namespace NetUse.NetConfigFile
 
 
 
-        public FileStorageItem(bool onlyDisconnect,
-            int cryptionMethod,
+        public FileStorageItem (bool onlyDisconnect,
+            int encryptIonMethod,
             char deviceName,
             string shareName,
             string userName,
             string userPass,
             string comments,
-            bool disconnectFirst) : base()
+            bool disconnectFirst) : base ()
         {
             this.ClassVersion = CLASSVERSION;
 
             this.OnlyDisconnect = onlyDisconnect;
 
-            this.CryptionMethod = cryptionMethod;
+            this.EncryptionMethod = encryptIonMethod;
             this.DeviceName = deviceName;
             this.ShareName = shareName;
             this.UserName = userName;

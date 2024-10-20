@@ -35,24 +35,24 @@ namespace NetUseGui
         private bool CurrentNetConfigurationFileChanged = false;
         private NetConfigFile CurrentNetConfigurationFile = null;
 
-        private char[] InvalidShareNameChars = new char[] { ' ', '/', ':', '*', '?','"','<','>','|' };
+        private char[] InvalidShareNameChars = new char[] { ' ', '/', ':', '*', '?', '"', '<', '>', '|' };
         private char[] InvalidUserNameChars = new char[] { ' ', '"', '/', '\\', '[', ']', ':', ';', '|', '=', ',', '+', '*', '?', '<', '>' };
         private char[] InvalidUserPasswordChars = new char[] { ' ' };
 
 
 
-        public frmMain()
+        public frmMain ()
         {
-            InitializeComponent();
+            InitializeComponent ();
 
 
             this.Text = MainWindowTitelBase;
             this.MessageBoxTitle = MainWindowTitelBase;
 
-            this.cbDeviceLetter.Items.Clear();
-            this.cbDeviceLetter.Items.AddRange(MakeDeviceNameList());
+            this.cbDeviceLetter.Items.Clear ();
+            this.cbDeviceLetter.Items.AddRange (MakeDeviceNameList ());
 
-            ShowMainPanel(false);
+            ShowMainPanel (false);
         }
 
 
@@ -61,7 +61,7 @@ namespace NetUseGui
 
 
 
-        private void btnStartPanel_MakeNew_Click(object sender, EventArgs e)
+        private void btnStartPanel_MakeNew_Click (object sender, EventArgs e)
         {
             this.UpdatingGuiActive = true;
 
@@ -69,17 +69,17 @@ namespace NetUseGui
             this.CurrentNetConfigurationFileChanged = false;
             this.Text = MainWindowTitelBase;
 
-            InitMainPanelAsConnectToShare(false, true);
-            ShowMainPanel(true);
+            InitMainPanelAsConnectToShare (false, true);
+            ShowMainPanel (true);
 
             this.UpdatingGuiActive = false;
         }
 
 
 
-        private void btnStartPanel_Open_Click(object sender, EventArgs e)
+        private void btnStartPanel_Open_Click (object sender, EventArgs e)
         {
-            CommonResult loadResult = OpenNetConfigurationFile(true);
+            CommonResult loadResult = OpenNetConfigurationFile (true);
 
 
             if (loadResult.Success)
@@ -88,10 +88,10 @@ namespace NetUseGui
 
                 this.CurrentNetConfigurationFile = loadResult.Data as NetConfigFile;
                 this.CurrentNetConfigurationFileChanged = false;
-                UpdateMainWindowTitel();
+                UpdateMainWindowTitel ();
 
-                UpdateMainPanelElements(this.CurrentNetConfigurationFile.Data);
-                ShowMainPanel(true);
+                UpdateMainPanelElements (this.CurrentNetConfigurationFile.Data);
+                ShowMainPanel (true);
 
                 this.UpdatingGuiActive = false;
             }
@@ -99,7 +99,7 @@ namespace NetUseGui
 
 
 
-        private void rbConnectShare_CheckedChanged(object sender, EventArgs e)
+        private void rbConnectShare_CheckedChanged (object sender, EventArgs e)
         {
             if (this.UpdatingGuiActive) { return; }
 
@@ -109,16 +109,16 @@ namespace NetUseGui
             if (sender == rbConnectShare)
             {
                 this.CurrentNetConfigurationFileChanged = true;
-                UpdateMainWindowTitel();
+                UpdateMainWindowTitel ();
 
-                InitMainPanelAsConnectToShare(true, false);
+                InitMainPanelAsConnectToShare (true, false);
             }
             else if (sender == rbDisconnectShare)
             {
                 this.CurrentNetConfigurationFileChanged = true;
-                UpdateMainWindowTitel();
+                UpdateMainWindowTitel ();
 
-                InitMainPanelAsDisconnectFromShare(true, false);
+                InitMainPanelAsDisconnectFromShare (true, false);
             }
 
             this.UpdatingGuiActive = false;
@@ -126,28 +126,28 @@ namespace NetUseGui
 
 
 
-        private void onGuiElementChange(object sender, EventArgs e)
+        private void onGuiElementChange (object sender, EventArgs e)
         {
             if (this.UpdatingGuiActive) { return; }
 
             this.UpdatingGuiActive = true;
 
             this.CurrentNetConfigurationFileChanged = true;
-            UpdateMainWindowTitel();
+            UpdateMainWindowTitel ();
 
             this.UpdatingGuiActive = false;
         }
 
 
 
-        private void tbShareName_Leave(object sender, EventArgs e)
+        private void tbShareName_Leave (object sender, EventArgs e)
         {
             string usedInvalidChars = string.Empty;
 
 
-            if (CheckForInvalidChar(tbShareName.Text, false, true, true, InvalidShareNameChars, out usedInvalidChars))
+            if (CheckForInvalidChar (tbShareName.Text, false, false, true, true, InvalidShareNameChars, out usedInvalidChars))
             {
-                MessageBox.Show($"Warning: The entered network share name contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show ($"Warning: The entered network share name contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 tbShareName.Text = String.Empty;
             }
@@ -155,14 +155,14 @@ namespace NetUseGui
 
 
 
-        private void tbUserName_Leave(object sender, EventArgs e)
+        private void tbUserName_Leave (object sender, EventArgs e)
         {
             string usedInvalidChars = string.Empty;
 
 
-            if (CheckForInvalidChar(tbUserName.Text, false, true, true, InvalidUserNameChars, out usedInvalidChars))
+            if (CheckForInvalidChar (tbUserName.Text, false, false, true, true, InvalidUserNameChars, out usedInvalidChars))
             {
-                MessageBox.Show($"Warning: The entered user name contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show ($"Warning: The entered user name contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 tbUserName.Text = String.Empty;
             }
@@ -170,14 +170,14 @@ namespace NetUseGui
 
 
 
-        private void tbUserPw_Leave(object sender, EventArgs e)
+        private void tbUserPw_Leave (object sender, EventArgs e)
         {
             string usedInvalidChars = string.Empty;
 
 
-            if (CheckForInvalidChar(tbUserPw.Text, false, true, true, InvalidUserPasswordChars, out usedInvalidChars))
+            if (CheckForInvalidChar (tbUserPw.Text, false, false, true, true, InvalidUserPasswordChars, out usedInvalidChars))
             {
-                MessageBox.Show($"Warning: The entered password contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show ($"Warning: The entered password contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 tbUserPw.Text = String.Empty;
             }
@@ -185,27 +185,42 @@ namespace NetUseGui
 
 
 
-        private void btnMenStrip_MakeNew_Click(object sender, EventArgs e)
+        private void cbDeviceLetter_Leave (object sender, EventArgs e)
         {
-            StoreUnsavedData(() =>
+            string usedInvalidChars = string.Empty;
+
+
+            if (cbDeviceLetter.Text.Length != 1 || CheckForInvalidChar (cbDeviceLetter.Text, true, false, true, false, null, out usedInvalidChars))
+            {
+                MessageBox.Show ($"Warning: The selected device name / device letter is invalid. Please try again with valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                cbDeviceLetter.Text = "Z";
+            }
+        }
+
+
+
+        private void btnMenStrip_MakeNew_Click (object sender, EventArgs e)
+        {
+            StoreUnsavedData (() =>
                 {
-                    btnStartPanel_MakeNew_Click(sender, e);
+                    btnStartPanel_MakeNew_Click (sender, e);
                 });
         }
 
 
 
-        private void btnMenStrip_Open_Click(object sender, EventArgs e)
+        private void btnMenStrip_Open_Click (object sender, EventArgs e)
         {
-            StoreUnsavedData(() =>
+            StoreUnsavedData (() =>
                 {
-                    btnStartPanel_Open_Click(sender, e);
+                    btnStartPanel_Open_Click (sender, e);
                 });
         }
 
 
 
-        private void btnMenStrip_Save_Click(object sender, EventArgs e)
+        private void btnMenStrip_Save_Click (object sender, EventArgs e)
         {
             CommonResult writeResult = null;
 
@@ -213,12 +228,12 @@ namespace NetUseGui
             if (this.CurrentNetConfigurationFile != null)
             {
                 // Write to NetCinfiguration file.
-                writeResult = SaveNetConfigurationFile(this.CurrentNetConfigurationFile, BuildNetConfigData(), true);
+                writeResult = SaveNetConfigurationFile (this.CurrentNetConfigurationFile, BuildNetConfigData (), true);
             }
             else
             {
                 // Create new NetCinfiguration file.
-                writeResult = SaveNetConfigurationFile(BuildNetConfigData(), true);
+                writeResult = SaveNetConfigurationFile (BuildNetConfigData (), true);
             }
 
             if (writeResult.Success)
@@ -227,7 +242,7 @@ namespace NetUseGui
 
                 this.CurrentNetConfigurationFile = writeResult.Data as NetConfigFile;
                 this.CurrentNetConfigurationFileChanged = false;
-                UpdateMainWindowTitel();
+                UpdateMainWindowTitel ();
 
                 this.UpdatingGuiActive = false;
             }
@@ -235,9 +250,9 @@ namespace NetUseGui
 
 
 
-        private void btnMenStrip_SaveAs_Click(object sender, EventArgs e)
+        private void btnMenStrip_SaveAs_Click (object sender, EventArgs e)
         {
-            CommonResult writeResult = SaveNetConfigurationFile(BuildNetConfigData(), true);
+            CommonResult writeResult = SaveNetConfigurationFile (BuildNetConfigData (), true);
 
             if (writeResult.Success)
             {
@@ -245,7 +260,7 @@ namespace NetUseGui
 
                 this.CurrentNetConfigurationFile = writeResult.Data as NetConfigFile;
                 this.CurrentNetConfigurationFileChanged = false;
-                UpdateMainWindowTitel();
+                UpdateMainWindowTitel ();
 
                 this.UpdatingGuiActive = false;
             }
@@ -253,13 +268,13 @@ namespace NetUseGui
 
 
 
-        private void btnMenStrip_Exit_Click(object sender, EventArgs e)
+        private void btnMenStrip_Exit_Click (object sender, EventArgs e)
         {
-            StoreUnsavedData(() =>
+            StoreUnsavedData (() =>
             {
                 this.UpdatingGuiActive = true;
 
-                Close();
+                Close ();
 
                 this.UpdatingGuiActive = false;
             });
@@ -267,13 +282,13 @@ namespace NetUseGui
 
 
 
-        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmMain_FormClosing (object sender, FormClosingEventArgs e)
         {
             if (this.UpdatingGuiActive) { return; }
 
             this.UpdatingGuiActive = true;
 
-            StoreUnsavedData(() =>
+            StoreUnsavedData (() =>
             {
                 ;
             }, () =>
@@ -286,19 +301,19 @@ namespace NetUseGui
 
 
 
-        private void frmMain_DragEnter(object sender, DragEventArgs e)
+        private void frmMain_DragEnter (object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent (DataFormats.FileDrop))
             {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                string[] files = (string[]) e.Data.GetData (DataFormats.FileDrop);
 
 
                 if (files.Length == 1)
                 {
-                    NetConfigFile config = new NetConfigFile();
+                    NetConfigFile config = new NetConfigFile ();
 
 
-                    if (config.LoadFile(files[0]).Success)
+                    if (config.LoadFile (files[0]).Success)
                     {
                         e.Effect = DragDropEffects.Copy;
 
@@ -312,16 +327,16 @@ namespace NetUseGui
 
 
 
-        private void frmMain_DragDrop(object sender, DragEventArgs e)
+        private void frmMain_DragDrop (object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            string[] files = (string[]) e.Data.GetData (DataFormats.FileDrop);
 
 
             if (files.Length == 1)
             {
-                StoreUnsavedData(() =>
+                StoreUnsavedData (() =>
                 {
-                    CommonResult loadResult = OpenNetConfigurationFile(files[0], true);
+                    CommonResult loadResult = OpenNetConfigurationFile (files[0], true);
 
 
                     if (loadResult.Success)
@@ -330,10 +345,10 @@ namespace NetUseGui
 
                         this.CurrentNetConfigurationFile = loadResult.Data as NetConfigFile;
                         this.CurrentNetConfigurationFileChanged = false;
-                        UpdateMainWindowTitel();
+                        UpdateMainWindowTitel ();
 
-                        UpdateMainPanelElements(this.CurrentNetConfigurationFile.Data);
-                        ShowMainPanel(true);
+                        UpdateMainPanelElements (this.CurrentNetConfigurationFile.Data);
+                        ShowMainPanel (true);
 
                         this.UpdatingGuiActive = false;
                     }
@@ -343,19 +358,19 @@ namespace NetUseGui
 
 
 
-        private void frmMain_Shown(object sender, EventArgs e)
+        private void frmMain_Shown (object sender, EventArgs e)
         {
-            string[] args = Environment.GetCommandLineArgs();
+            string[] args = Environment.GetCommandLineArgs ();
 
 
             if (args.Length == 2)
             {
-                string netConfigurationFile = args[1].Replace('"', ' ').Trim();
+                string netConfigurationFile = args[1].Replace ('"', ' ').Trim ();
 
 
-                if (File.Exists(netConfigurationFile))
+                if (File.Exists (netConfigurationFile))
                 {
-                    CommonResult loadResult = OpenNetConfigurationFile(netConfigurationFile, true);
+                    CommonResult loadResult = OpenNetConfigurationFile (netConfigurationFile, true);
 
 
                     if (loadResult.Success)
@@ -364,10 +379,10 @@ namespace NetUseGui
 
                         this.CurrentNetConfigurationFile = loadResult.Data as NetConfigFile;
                         this.CurrentNetConfigurationFileChanged = false;
-                        UpdateMainWindowTitel();
+                        UpdateMainWindowTitel ();
 
-                        UpdateMainPanelElements(this.CurrentNetConfigurationFile.Data);
-                        ShowMainPanel(true);
+                        UpdateMainPanelElements (this.CurrentNetConfigurationFile.Data);
+                        ShowMainPanel (true);
 
                         this.UpdatingGuiActive = false;
                     }
@@ -377,10 +392,10 @@ namespace NetUseGui
 
 
 
-        private void btnMenStrip_RunCmd_Click(object sender, EventArgs e)
+        private void btnMenStrip_RunCmd_Click (object sender, EventArgs e)
         {
             CommonResult commonResult;
-            NetConfigData netConfigData = BuildNetConfigData();
+            NetConfigData netConfigData = BuildNetConfigData ();
 
 
             // Make some basic checks, before executing the net use command.
@@ -389,25 +404,25 @@ namespace NetUseGui
                 if (tbShareName.Text.Length < 5)
                 {
                     // Minimum 5 chars are expected for share name: "\\x\y"
-                    MessageBox.Show("The entered network share name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show ("The entered network share name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
 
                 if (tbUserName.Text.Length == 0)
                 {
-                    MessageBox.Show("The entered user name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show ("The entered user name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
 
                 if (tbUserPw.Text.Length == 0)
                 {
-                    MessageBox.Show("The entered user name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show ("The entered user name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
             }
             else
             {
-                if (tbShareName.Text.Length < 5)
+                if (cbDeviceLetter.Text.Length != 1)
                 {
                     // Minimum 5 chars are expected for share name: "\\x\y"
                     MessageBox.Show ("The entered network share name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -415,50 +430,50 @@ namespace NetUseGui
                 }
             }
 
-            commonResult = RunCommand(netConfigData);
+            commonResult = RunCommand (netConfigData);
 
             if (commonResult.Success)
             {
-                MessageBox.Show("The Net Use command was executed without problems.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show ("The Net Use command was executed without problems.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show($"The Net Use command was executed with errors!\n\nErrormessage:\n{commonResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{commonResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
 
-        private void btnMenStrip_RegFileExt_Click(object sender, EventArgs e)
+        private void btnMenStrip_RegFileExt_Click (object sender, EventArgs e)
         {
             CommonResult commonResult;
 
 
-            commonResult = RegisterNetConfigurationFileExtension();
+            commonResult = RegisterNetConfigurationFileExtension ();
 
             if (commonResult.Success)
             {
-                MessageBox.Show("File extension has been registered.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show ("File extension has been registered.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 if (commonResult.ErrorCode == CommonResult.ErrorResultCodes.E_UnauthorizedAccessException)
                 {
-                    MessageBox.Show(commonResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show (commonResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    MessageBox.Show(commonResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show (commonResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
 
 
-        private void btnMenStrip_About_Click(object sender, EventArgs e)
+        private void btnMenStrip_About_Click (object sender, EventArgs e)
         {
-            frmAboutBox aboutBox = new frmAboutBox();
-            aboutBox.ShowDialog();
+            frmAboutBox aboutBox = new frmAboutBox ();
+            aboutBox.ShowDialog ();
         }
 
 
@@ -471,7 +486,7 @@ namespace NetUseGui
 
 
 
-        private void UpdateMainWindowTitel()
+        private void UpdateMainWindowTitel ()
         {
             if (this.CurrentNetConfigurationFile == null)
             {
@@ -479,7 +494,7 @@ namespace NetUseGui
             }
             else
             {
-                string configFilename = Path.GetFileNameWithoutExtension(this.CurrentNetConfigurationFile.CurrentFile);
+                string configFilename = Path.GetFileNameWithoutExtension (this.CurrentNetConfigurationFile.CurrentFile);
 
 
                 this.Text = $"{MainWindowTitelBase} [{configFilename}] {(this.CurrentNetConfigurationFileChanged ? "*" : "")}";
@@ -488,7 +503,7 @@ namespace NetUseGui
 
 
 
-        private void ShowMainPanel(bool showMainPanel)
+        private void ShowMainPanel (bool showMainPanel)
         {
             panelStart.Visible = !showMainPanel;
             panelEdit.Visible = showMainPanel;
@@ -500,13 +515,13 @@ namespace NetUseGui
 
 
 
-        private void UpdateMainPanelElements(NetConfigData netConfigData)
+        private void UpdateMainPanelElements (NetConfigData netConfigData)
         {
             if (netConfigData.OnlyDisconnect)
             {
                 rbDisconnectShare.Checked = true;
 
-                cbDeviceLetter.Text = netConfigData.DeviceName.ToString();
+                cbDeviceLetter.Text = netConfigData.DeviceName.ToString ();
                 tbShareName.Text = String.Empty;
                 cbDisconnectFirst.Checked = false;
 
@@ -524,7 +539,7 @@ namespace NetUseGui
             {
                 rbConnectShare.Checked = true;
 
-                cbDeviceLetter.Text = netConfigData.DeviceName.ToString();
+                cbDeviceLetter.Text = netConfigData.DeviceName.ToString ();
                 tbShareName.Text = netConfigData.ShareName;
                 cbDisconnectFirst.Checked = netConfigData.DisconnectFirst;
 
@@ -544,7 +559,7 @@ namespace NetUseGui
 
 
 
-        private void InitMainPanelAsConnectToShare(bool keepCurrentValues, bool loadExampleVal)
+        private void InitMainPanelAsConnectToShare (bool keepCurrentValues, bool loadExampleVal)
         {
             rbConnectShare.Checked = true;
 
@@ -569,7 +584,7 @@ namespace NetUseGui
 
 
 
-        private void InitMainPanelAsDisconnectFromShare(bool keepCurrentValues, bool loadExampleVal)
+        private void InitMainPanelAsDisconnectFromShare (bool keepCurrentValues, bool loadExampleVal)
         {
             rbDisconnectShare.Checked = true;
 
@@ -594,10 +609,10 @@ namespace NetUseGui
 
 
 
-        private NetConfigData BuildNetConfigData()
+        private NetConfigData BuildNetConfigData ()
         {
             bool conn = rbConnectShare.Checked;
-            NetConfigData result = new NetConfigData();
+            NetConfigData result = new NetConfigData ();
 
             result.OnlyDisconnect = !rbConnectShare.Checked;
 
@@ -615,11 +630,11 @@ namespace NetUseGui
 
 
 
-        private void StoreUnsavedData(Action afterSaveAction, Action userAbortAction = null)
+        private void StoreUnsavedData (Action afterSaveAction, Action userAbortAction = null)
         {
             if (this.CurrentNetConfigurationFileChanged == true)
             {
-                DialogResult result = MessageBox.Show("The settings have been changed but not saved yet!\n\nShould the settings be saved first ?", this.MessageBoxTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+                DialogResult result = MessageBox.Show ("The settings have been changed but not saved yet!\n\nShould the settings be saved first ?", this.MessageBoxTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
 
                 switch (result)
                 {
@@ -628,7 +643,7 @@ namespace NetUseGui
                             if (this.CurrentNetConfigurationFile != null)
                             {
                                 // Save to current file                                    
-                                CommonResult writeResult = SaveNetConfigurationFile(this.CurrentNetConfigurationFile, BuildNetConfigData(), true);
+                                CommonResult writeResult = SaveNetConfigurationFile (this.CurrentNetConfigurationFile, BuildNetConfigData (), true);
 
                                 if (!writeResult.Success)
                                 {
@@ -638,7 +653,7 @@ namespace NetUseGui
                             else
                             {
                                 // Save to new file
-                                CommonResult writeResult = SaveNetConfigurationFile(BuildNetConfigData(), true);
+                                CommonResult writeResult = SaveNetConfigurationFile (BuildNetConfigData (), true);
 
                                 if (!writeResult.Success)
                                 {
@@ -648,7 +663,7 @@ namespace NetUseGui
 
                             this.UpdatingGuiActive = true;
 
-                            afterSaveAction();
+                            afterSaveAction ();
 
                             this.UpdatingGuiActive = false;
 
@@ -658,7 +673,7 @@ namespace NetUseGui
                         {
                             this.UpdatingGuiActive = true;
 
-                            afterSaveAction();
+                            afterSaveAction ();
 
                             this.UpdatingGuiActive = false;
 
@@ -668,7 +683,7 @@ namespace NetUseGui
                         {
                             if (userAbortAction != null)
                             {
-                                userAbortAction();
+                                userAbortAction ();
                             }
                             else
                             {
@@ -683,7 +698,7 @@ namespace NetUseGui
             {
                 this.UpdatingGuiActive = true;
 
-                afterSaveAction();
+                afterSaveAction ();
 
                 this.UpdatingGuiActive = false;
             }
@@ -691,7 +706,7 @@ namespace NetUseGui
 
 
 
-        private bool CheckForInvalidChar(string textToCheck, bool allowAsciiLettersAndDigitsOnly, bool checkForInvalidAscii, bool checkForInvalidUnicode, char[] optionalInvalidCharList, out string usedInvalidChars)
+        private bool CheckForInvalidChar (string textToCheck, bool allowAsciiLettersOnly, bool allowAsciiLettersAndDigitsOnly, bool checkForInvalidAscii, bool checkForInvalidUnicode, char[] optionalInvalidCharList, out string usedInvalidChars)
         {
             bool hasInvalidChar = false;
 
@@ -702,9 +717,18 @@ namespace NetUseGui
 
             usedInvalidChars = String.Empty;
 
+            if (allowAsciiLettersOnly)
+            {
+                filteredString = new string (textToCheck.Where (c => char.IsLetter (c)).ToArray ());
+                //filteredCharList = textToCheck.Where(c => char.IsLetter(c) || char.IsDigit(c));
+
+                hasInvalidChar |= filteredString.Length != textToCheck.Length ? true : false;
+                //hasInvalidChar |= filteredCharList.Count() > 0 ? true : false; 
+            }
+
             if (allowAsciiLettersAndDigitsOnly)
             {
-                filteredString = new string(textToCheck.Where(c => char.IsLetter(c) || char.IsDigit(c)).ToArray());
+                filteredString = new string (textToCheck.Where (c => char.IsLetter (c) || char.IsDigit (c)).ToArray ());
                 //filteredCharList = textToCheck.Where(c => char.IsLetter(c) || char.IsDigit(c));
 
                 hasInvalidChar |= filteredString.Length != textToCheck.Length ? true : false;
@@ -713,7 +737,7 @@ namespace NetUseGui
 
             if (checkForInvalidAscii)
             {
-                filteredString = new string(textToCheck.Where(c => !char.IsControl(c)).ToArray());
+                filteredString = new string (textToCheck.Where (c => !char.IsControl (c)).ToArray ());
                 //filteredCharList = textToCheck.Where(c => !char.IsControl(c));
 
                 hasInvalidChar |= filteredString.Length != textToCheck.Length ? true : false;
@@ -722,7 +746,7 @@ namespace NetUseGui
 
             if (checkForInvalidUnicode)
             {
-                filteredString = new string(textToCheck.Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.Format).ToArray());
+                filteredString = new string (textToCheck.Where (c => char.GetUnicodeCategory (c) != UnicodeCategory.Format).ToArray ());
                 //filteredCharList = textToCheck.Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.Format);
 
                 hasInvalidChar |= filteredString.Length != textToCheck.Length ? true : false;
@@ -731,20 +755,20 @@ namespace NetUseGui
 
             if (optionalInvalidCharList != null)
             {
-                invalidChars = filteredString.Join(optionalInvalidCharList,
+                invalidChars = filteredString.Join (optionalInvalidCharList,
                                           inputChar => inputChar,
                                           invalidChar => invalidChar,
                                           (str1, invalidChar) => str1);
 
-                if (invalidChars.Count() > 0)
+                if (invalidChars.Count () > 0)
                 {
                     hasInvalidChar |= true;
 
                     foreach (var invalidChar in invalidChars)
                     {
-                        usedInvalidChars += $", \"{invalidChar.ToString()}\"";
+                        usedInvalidChars += $", \"{invalidChar.ToString ()}\"";
                     }
-                    usedInvalidChars = usedInvalidChars.Remove(0, 1);
+                    usedInvalidChars = usedInvalidChars.Remove (0, 1);
                 }
             }
 
@@ -784,7 +808,7 @@ namespace NetUseGui
 
 
 
-        private string[] MakeDeviceNameList()
+        private string[] MakeDeviceNameList ()
         {
             return new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
         }
@@ -804,14 +828,14 @@ namespace NetUseGui
         /// </summary>
         /// <param name="showMessageDialogOnError">Show an error dialog window on error</param>
         /// <returns>CommonResult object which hosts a NetConfigFile object on success</returns>
-        private CommonResult OpenNetConfigurationFile(bool showMessageDialogOnError)
+        private CommonResult OpenNetConfigurationFile (bool showMessageDialogOnError)
         {
             try
             {
-                NetConfigFile configFile = new NetConfigFile();
+                NetConfigFile configFile = new NetConfigFile ();
 
-                Assembly currentAssembly = Assembly.GetExecutingAssembly();
-                String currentPath = Path.GetDirectoryName(currentAssembly.Location);
+                Assembly currentAssembly = Assembly.GetExecutingAssembly ();
+                String currentPath = Path.GetDirectoryName (currentAssembly.Location);
 
                 CommonResult loadResult;
 
@@ -824,19 +848,19 @@ namespace NetUseGui
                 openFileDialog1.RestoreDirectory = true;
                 openFileDialog1.FileName = String.Empty;
 
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                if (openFileDialog1.ShowDialog () == DialogResult.OK)
                 {
-                    loadResult = configFile.LoadFile(openFileDialog1.FileName);
+                    loadResult = configFile.LoadFile (openFileDialog1.FileName);
 
                     if (loadResult.Success && configFile.CurrentFile != String.Empty)
                     {
-                        return CommonResult.MakeSuccess(configFile);
+                        return CommonResult.MakeSuccess (configFile);
                     }
                     else
                     {
                         if (showMessageDialogOnError)
                         {
-                            MessageBox.Show($"An error occurred while loading a NetUse Configuration file!\n\nReason:\n{loadResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show ($"An error occurred while loading a NetUse Configuration file!\n\nReason:\n{loadResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         return loadResult;
@@ -844,17 +868,17 @@ namespace NetUseGui
                 }
                 else
                 {
-                    return CommonResult.MakeError(CommonResult.ErrorResultCodes.E_Abort, "Abort by user");
+                    return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_Abort, "Abort by user");
                 }
             }
             catch (Exception ex)
             {
                 if (showMessageDialogOnError)
                 {
-                    MessageBox.Show($"An exeption occurred while loading a NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show ($"An exception occurred while loading a NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                return CommonResult.MakeExeption(ex.Message);
+                return CommonResult.MakeExeption (ex.Message);
             }
         }
 
@@ -866,23 +890,23 @@ namespace NetUseGui
         /// <param name="filename"></param>
         /// <param name="showMessageDialogOnError">Show an error dialog window on error</param>
         /// <returns>CommonResult object which hosts a NetConfigFile object on success</returns>
-        private CommonResult OpenNetConfigurationFile(string filename, bool showMessageDialogOnError)
+        private CommonResult OpenNetConfigurationFile (string filename, bool showMessageDialogOnError)
         {
             try
             {
-                NetConfigFile configFile = new NetConfigFile();
+                NetConfigFile configFile = new NetConfigFile ();
 
-                CommonResult loadResult = configFile.LoadFile(filename);
+                CommonResult loadResult = configFile.LoadFile (filename);
 
                 if (loadResult.Success && configFile.CurrentFile != String.Empty)
                 {
-                    return CommonResult.MakeSuccess(configFile);
+                    return CommonResult.MakeSuccess (configFile);
                 }
                 else
                 {
                     if (showMessageDialogOnError)
                     {
-                        MessageBox.Show($"An error occurred while loading a NetUse Configuration file!\n\nReason:\n{loadResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show ($"An error occurred while loading a NetUse Configuration file!\n\nReason:\n{loadResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     return loadResult;
@@ -892,10 +916,10 @@ namespace NetUseGui
             {
                 if (showMessageDialogOnError)
                 {
-                    MessageBox.Show($"An exeption occurred while loading a NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show ($"An exception occurred while loading a NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                return CommonResult.MakeExeption(ex.Message);
+                return CommonResult.MakeExeption (ex.Message);
             }
         }
 
@@ -907,14 +931,14 @@ namespace NetUseGui
         /// <param name="newNetConfigurationData"></param>
         /// <param name="showMessageDialogOnError"></param>
         /// <returns>CommonResult object which hosts a NetConfigFile object on success</returns>
-        private CommonResult SaveNetConfigurationFile(NetConfigData newNetConfigurationData, bool showMessageDialogOnError)
+        private CommonResult SaveNetConfigurationFile (NetConfigData newNetConfigurationData, bool showMessageDialogOnError)
         {
             try
             {
-                NetConfigFile newNetConfigurationFile = new NetConfigFile();
+                NetConfigFile newNetConfigurationFile = new NetConfigFile ();
 
-                Assembly currentAssembly = Assembly.GetExecutingAssembly();
-                String currentPath = Path.GetDirectoryName(currentAssembly.Location);
+                Assembly currentAssembly = Assembly.GetExecutingAssembly ();
+                String currentPath = Path.GetDirectoryName (currentAssembly.Location);
 
                 CommonResult writeResult;
 
@@ -927,19 +951,19 @@ namespace NetUseGui
                 saveFileDialog1.RestoreDirectory = true;
                 saveFileDialog1.FileName = String.Empty;
 
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                if (saveFileDialog1.ShowDialog () == DialogResult.OK)
                 {
-                    writeResult = newNetConfigurationFile.WriteFile(newNetConfigurationData, saveFileDialog1.FileName, Cryption.CryptionMethod.PlanText, true, true);
+                    writeResult = newNetConfigurationFile.WriteFile (newNetConfigurationData, saveFileDialog1.FileName, Cryption.EncryptionMethod.PlanText, true, true);
 
                     if (writeResult.Success && newNetConfigurationFile.CurrentFile != String.Empty)
                     {
-                        return CommonResult.MakeSuccess(newNetConfigurationFile);
+                        return CommonResult.MakeSuccess (newNetConfigurationFile);
                     }
                     else
                     {
                         if (showMessageDialogOnError)
                         {
-                            MessageBox.Show($"An error occurred while writing a new NetUse Configuration file!\n\nReason:\n{writeResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show ($"An error occurred while writing a new NetUse Configuration file!\n\nReason:\n{writeResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         return writeResult;
@@ -947,17 +971,17 @@ namespace NetUseGui
                 }
                 else
                 {
-                    return CommonResult.MakeError(CommonResult.ErrorResultCodes.E_Abort, "Abort by user");
+                    return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_Abort, "Abort by user");
                 }
             }
             catch (Exception ex)
             {
                 if (showMessageDialogOnError)
                 {
-                    MessageBox.Show($"An exeption occurred while writing data to new NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show ($"An exception occurred while writing data to new NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                return CommonResult.MakeExeption(ex.Message);
+                return CommonResult.MakeExeption (ex.Message);
             }
         }
 
@@ -970,22 +994,22 @@ namespace NetUseGui
         /// <param name="newNetConfigurationData"></param>
         /// <param name="showMessageDialogOnError"></param>
         /// <returns>CommonResult object which hosts a NetConfigFile object on success</returns>
-        private CommonResult SaveNetConfigurationFile(NetConfigFile curNetConfigurationFile, NetConfigData newNetConfigurationData, bool showMessageDialogOnError)
+        private CommonResult SaveNetConfigurationFile (NetConfigFile curNetConfigurationFile, NetConfigData newNetConfigurationData, bool showMessageDialogOnError)
         {
             try
             {
-                CommonResult writeResult = curNetConfigurationFile.WriteFile(newNetConfigurationData, curNetConfigurationFile.CurrentFile, Cryption.CryptionMethod.PlanText, true, true);
+                CommonResult writeResult = curNetConfigurationFile.WriteFile (newNetConfigurationData, curNetConfigurationFile.CurrentFile, Cryption.EncryptionMethod.PlanText, true, true);
 
 
                 if (writeResult.Success && curNetConfigurationFile.CurrentFile != String.Empty)
                 {
-                    return CommonResult.MakeSuccess(curNetConfigurationFile);
+                    return CommonResult.MakeSuccess (curNetConfigurationFile);
                 }
                 else
                 {
                     if (showMessageDialogOnError)
                     {
-                        MessageBox.Show($"An error occurred while writing a NetUse Configuration file!\n\nReason:\n{writeResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show ($"An error occurred while writing a NetUse Configuration file!\n\nReason:\n{writeResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     return writeResult;
@@ -995,10 +1019,10 @@ namespace NetUseGui
             {
                 if (showMessageDialogOnError)
                 {
-                    MessageBox.Show($"An exeption occurred while writing data to NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show ($"An exception occurred while writing data to NetUse Configuration file!\n\nReason:\n{ex.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                return CommonResult.MakeExeption(ex.Message);
+                return CommonResult.MakeExeption (ex.Message);
             }
         }
 
@@ -1008,58 +1032,58 @@ namespace NetUseGui
         /// Register our NetConfiguration file in the registry.
         /// </summary>
         /// <returns></returns>
-        private CommonResult RegisterNetConfigurationFileExtension()
+        private CommonResult RegisterNetConfigurationFileExtension ()
         {
             try
             {
                 RegistryKey regRoot = Registry.ClassesRoot;
 
-                Assembly currentAssembly = Assembly.GetExecutingAssembly();
-                String currentPath = Path.GetDirectoryName(currentAssembly.Location);
+                Assembly currentAssembly = Assembly.GetExecutingAssembly ();
+                String currentPath = Path.GetDirectoryName (currentAssembly.Location);
 
 
-                using (RegistryKey key1 = regRoot.CreateSubKey("NetCfgFile"))
+                using (RegistryKey key1 = regRoot.CreateSubKey ("NetCfgFile"))
                 {
-                    key1.SetValue("", "Net Use Configuration File", RegistryValueKind.String);
+                    key1.SetValue ("", "Net Use Configuration File", RegistryValueKind.String);
 
-                    using (RegistryKey key11 = key1.CreateSubKey("DefaultIcon"))
+                    using (RegistryKey key11 = key1.CreateSubKey ("DefaultIcon"))
                     {
-                        key11.SetValue("", $"\"{currentAssembly.Location}\",-1", RegistryValueKind.ExpandString);
+                        key11.SetValue ("", $"\"{currentAssembly.Location}\",-1", RegistryValueKind.ExpandString);
                     }
 
-                    using (RegistryKey key12 = key1.CreateSubKey("shell"))
+                    using (RegistryKey key12 = key1.CreateSubKey ("shell"))
                     {
                         using (RegistryKey
-                            key121 = key12.CreateSubKey("edit"),
-                            key1211 = key121.CreateSubKey("command"))
+                            key121 = key12.CreateSubKey ("edit"),
+                            key1211 = key121.CreateSubKey ("command"))
                         {
-                            key1211.SetValue("", $"\"{currentAssembly.Location}\" \"%1\"", RegistryValueKind.ExpandString);
+                            key1211.SetValue ("", $"\"{currentAssembly.Location}\" \"%1\"", RegistryValueKind.ExpandString);
                         }
 
                         using (RegistryKey
-                            key122 = key12.CreateSubKey("open"),
-                            key1221 = key122.CreateSubKey("command"))
+                            key122 = key12.CreateSubKey ("open"),
+                            key1221 = key122.CreateSubKey ("command"))
                         {
-                            key1221.SetValue("", $"\"{currentPath}\\netuse.exe\" \"%1\"", RegistryValueKind.ExpandString);
+                            key1221.SetValue ("", $"\"{currentPath}\\netuse.exe\" \"%1\"", RegistryValueKind.ExpandString);
                         }
                     }
                 }
 
-                using (RegistryKey key2 = regRoot.CreateSubKey(".netcfg"))
+                using (RegistryKey key2 = regRoot.CreateSubKey (".netcfg"))
                 {
-                    key2.SetValue("", "NetCfgFile", RegistryValueKind.String);
+                    key2.SetValue ("", "NetCfgFile", RegistryValueKind.String);
                 }
 
 
-                return CommonResult.MakeSuccess();
+                return CommonResult.MakeSuccess ();
             }
             catch (UnauthorizedAccessException)
             {
-                return CommonResult.MakeError(CommonResult.ErrorResultCodes.E_UnauthorizedAccessException, $"Write access to the Win-Registry was denied. In order for the file extension to be registered, write access is required.\n\nPlease start the program again with administrator rights.");
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_UnauthorizedAccessException, $"Write access to the Win-Registry was denied. In order for the file extension to be registered, write access is required.\n\nPlease start the program again with administrator rights.");
             }
             catch (Exception ex)
             {
-                return CommonResult.MakeExeption($"An error occurred while registering the file extension.\n\nOriginal reason: {ex.Message}");
+                return CommonResult.MakeExeption ($"An error occurred while registering the file extension.\n\nOriginal reason: {ex.Message}");
             }
         }
 
@@ -1070,7 +1094,7 @@ namespace NetUseGui
         /// </summary>
         /// <param name="netConfigurationData"></param>
         /// <returns></returns>
-        private CommonResult RunCommand(NetConfigData netConfigurationData)
+        private CommonResult RunCommand (NetConfigData netConfigurationData)
         {
             try
             {
@@ -1079,18 +1103,18 @@ namespace NetUseGui
 
                 if (netConfigurationData.OnlyDisconnect)
                 {
-                    return CoreFunc.ExecuteDisconnectNetCommand(netConfigurationData.DeviceName);
+                    return CoreFunc.DisconnectNetShare (netConfigurationData.DeviceName);
                 }
                 else
                 {
                     if (netConfigurationData.DisconnectFirst)
                     {
-                        funcResult = CoreFunc.DisconnectNetShare(netConfigurationData.DeviceName);
+                        funcResult = CoreFunc.DisconnectNetShare (netConfigurationData.DeviceName);
                     }
 
                     if (funcResult == null || funcResult.Success)
                     {
-                        return CoreFunc.ExecuteConnectNetCommand(netConfigurationData.DeviceName, netConfigurationData.ShareName, netConfigurationData.UserName, netConfigurationData.UserPass);
+                        return CoreFunc.ExecuteConnectNetCommand (netConfigurationData.DeviceName, netConfigurationData.ShareName, netConfigurationData.UserName, netConfigurationData.UserPass);
                     }
                     else
                     {
@@ -1100,7 +1124,7 @@ namespace NetUseGui
             }
             catch (Exception ex)
             {
-                return CommonResult.MakeExeption(ex.Message);
+                return CommonResult.MakeExeption (ex.Message);
             }
         }
 

@@ -18,22 +18,22 @@ namespace NetUse.NetConfigFile
     public class NetConfigFile
     {
         /// <summary>
-        /// Filename from the curently used NetConfiguration file.
+        /// Filename from the currently used NetConfiguration file.
         /// Empty, when no file was load.
         /// </summary>
         public string CurrentFile { get; private set; }
 
         /// <summary>
-        /// Data from the curently used NetConfiguration file.
+        /// Data from the currently used NetConfiguration file.
         /// NULL, when no file was load.
         /// </summary>
         public NetConfigData Data { get; private set; }
 
         /// <summary>
-        /// Cryption method from the curently used NetConfiguration file.
+        /// Encryption method from the currently used NetConfiguration file.
         /// PlainText, when no file was load.
         /// </summary>
-        public Cryption.CryptionMethod CryptionMethod { get; private set; }
+        public Cryption.EncryptionMethod CryptIonMethod { get; private set; }
 
 
 
@@ -42,62 +42,62 @@ namespace NetUse.NetConfigFile
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public CommonResult LoadFile(string filename)
+        public CommonResult LoadFile (string filename)
         {
             this.CurrentFile = "";
             this.Data = null;
-            this.CryptionMethod = CryptionMethod.PlanText;
+            this.CryptIonMethod = EncryptionMethod.PlanText;
 
             try
             {
-                if (File.Exists(filename))
+                if (File.Exists (filename))
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(FileStorageItem));
+                    XmlSerializer serializer = new XmlSerializer (typeof (FileStorageItem));
                     FileStorageItem fileStorageItem;
                     NetConfigData storageItem;
-                    CryptionMethod cryptionMethod;
+                    EncryptionMethod cryptionMethod;
 
 
                     try
                     {
-                        using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+                        using (FileStream fs = new FileStream (filename, FileMode.Open, FileAccess.Read, FileShare.Read))
                         {
                             try
                             {
-                                fileStorageItem = (FileStorageItem)serializer.Deserialize(fs);
+                                fileStorageItem = (FileStorageItem) serializer.Deserialize (fs);
                             }
                             catch (Exception ex)
                             {
-                                return CommonResult.MakeError(CommonResult.ErrorResultCodes.E_Deserialize, $"Could not deserialize Net Use Configuration file \"{filename}\". Reason: {ex.Message}");
+                                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_Deserialize, $"Could not de-serialize Net Use Configuration file \"{filename}\". Reason: {ex.Message}");
                             }
 
-                            storageItem = NetConfigData.FromFileStorageItem(fileStorageItem, out cryptionMethod);
+                            storageItem = NetConfigData.FromFileStorageItem (fileStorageItem, out cryptionMethod);
 
                             if (storageItem != null)
                             {
                                 this.Data = storageItem;
                                 this.CurrentFile = filename;
-                                this.CryptionMethod = cryptionMethod;
+                                this.CryptIonMethod = cryptionMethod;
 
-                                return CommonResult.MakeSuccess();
+                                return CommonResult.MakeSuccess ();
                             }
 
-                            return CommonResult.MakeError(CommonResult.ErrorResultCodes.E_FileReadParsing, $"Could not parse Net Use Configuration file content. Maybe incompatible version");
+                            return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_FileReadParsing, $"Could not parse Net Use Configuration file content. Maybe incompatible version");
                         }
                     }
                     catch (Exception ex)
                     {
-                        return CommonResult.MakeError(CommonResult.ErrorResultCodes.E_FileRead, $"Could not open and read Net Use Configuration file \"{filename}\". Reason: {ex.Message}");
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_FileRead, $"Could not open and read Net Use Configuration file \"{filename}\". Reason: {ex.Message}");
                     }
                 }
                 else
                 {
-                    return CommonResult.MakeError(CommonResult.ErrorResultCodes.E_FileNotExists, $"Net Use Configuration file \"{filename}\" not exists");
+                    return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_FileNotExists, $"Net Use Configuration file \"{filename}\" not exists");
                 }
             }
             catch (Exception ex)
             {
-                return CommonResult.MakeExeption(ex.Message);
+                return CommonResult.MakeExeption (ex.Message);
             }
         }
 
@@ -112,72 +112,72 @@ namespace NetUse.NetConfigFile
         /// <param name="allowFileOverride"></param>
         /// <param name="loadFile"></param>
         /// <returns></returns>
-        public CommonResult WriteFile(NetConfigData data, string filename, Cryption.CryptionMethod cryptionMethod, bool allowFileOverride, bool loadFile)
+        public CommonResult WriteFile (NetConfigData data, string filename, Cryption.EncryptionMethod cryptionMethod, bool allowFileOverride, bool loadFile)
         {
             try
             {
-                if (allowFileOverride || File.Exists(filename) == false)
+                if (allowFileOverride || File.Exists (filename) == false)
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(FileStorageItem));
+                    XmlSerializer serializer = new XmlSerializer (typeof (FileStorageItem));
                     FileStorageItem fileStorageItem;
 
 
-                    fileStorageItem = data.ToFileStorageItem(cryptionMethod);
+                    fileStorageItem = data.ToFileStorageItem (cryptionMethod);
 
                     if (fileStorageItem != null)
                     {
                         try
                         {
-                            using (FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
+                            using (FileStream fs = new FileStream (filename, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
                             {
                                 try
                                 {
-                                    serializer.Serialize(fs, fileStorageItem);
+                                    serializer.Serialize (fs, fileStorageItem);
                                 }
                                 catch (Exception ex)
                                 {
-                                    return CommonResult.MakeError(CommonResult.ErrorResultCodes.E_Serialize, $"Data preparing failed. Reason: {ex.Message}");
+                                    return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_Serialize, $"Data preparing failed. Reason: {ex.Message}");
                                 }
 
                                 if (loadFile)
                                 {
                                     this.Data = data;
                                     this.CurrentFile = filename;
-                                    this.CryptionMethod = cryptionMethod;
+                                    this.CryptIonMethod = cryptionMethod;
                                 }
 
-                                return CommonResult.MakeSuccess();
+                                return CommonResult.MakeSuccess ();
                             }
 
                         }
                         catch (Exception ex)
                         {
-                            return CommonResult.MakeError(CommonResult.ErrorResultCodes.E_FileOpenReadWrite, $"Could not create and write Net Use Configuration file \"{filename}\". Reason: {ex.Message}");
+                            return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_FileOpenReadWrite, $"Could not create and write Net Use Configuration file \"{filename}\". Reason: {ex.Message}");
                         }
                     }
                     else
                     {
-                        return CommonResult.MakeError(CommonResult.ErrorResultCodes.E_ConvertToFileStorageItem, $"Data preparing failed");
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_ConvertToFileStorageItem, $"Data preparing failed");
                     }
                 }
                 else
                 {
-                    return CommonResult.MakeError(CommonResult.ErrorResultCodes.E_FileExists, $"Net Use Configuration file \"{filename}\" already exists");
+                    return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_FileExists, $"Net Use Configuration file \"{filename}\" already exists");
                 }
             }
             catch (Exception ex)
             {
-                return CommonResult.MakeExeption(ex.Message);
+                return CommonResult.MakeExeption (ex.Message);
             }
         }
 
 
 
-        public NetConfigFile()
+        public NetConfigFile ()
         {
             this.CurrentFile = "";
             this.Data = null;
-            this.CryptionMethod = CryptionMethod.PlanText;
+            this.CryptIonMethod = EncryptionMethod.PlanText;
         }
     }
 }

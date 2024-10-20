@@ -32,7 +32,7 @@ namespace NetUse.NetConfigFile
 
 
 
-        public NetConfigData()
+        public NetConfigData ()
         {
             this.OnlyDisconnect = false;
             this.DeviceName = 'Z';
@@ -49,15 +49,15 @@ namespace NetUse.NetConfigFile
         /// Convert a FileStorageItem object into a NetConfigData object.
         /// </summary>
         /// <param name="fileStorageItem">A FileStorageItem to convert from</param>
-        /// <param name="cryptionMethod">Used cryption method in the FileStorageItem object</param>
+        /// <param name="cryptionMethod">Used encryption method in the FileStorageItem object</param>
         /// <returns>New NetConfigData object</returns>
-        internal static NetConfigData FromFileStorageItem(FileStorageItem fileStorageItem, out Cryption.CryptionMethod cryptionMethod)
+        internal static NetConfigData FromFileStorageItem (FileStorageItem fileStorageItem, out Cryption.EncryptionMethod cryptionMethod)
         {
-            cryptionMethod = Cryption.CryptionMethod.PlanText;
+            cryptionMethod = Cryption.EncryptionMethod.PlanText;
 
             try
             {
-                NetConfigData result = new NetConfigData();
+                NetConfigData result = new NetConfigData ();
 
 
                 if (fileStorageItem != null)
@@ -73,18 +73,18 @@ namespace NetUse.NetConfigFile
                         result.Comments = fileStorageItem.Comments;
                         result.DisconnectFirst = fileStorageItem.DisconnectFirst;
 
-                        if ((Cryption.CryptionMethod)fileStorageItem.CryptionMethod != Cryption.CryptionMethod.PlanText)
+                        if ((Cryption.EncryptionMethod) fileStorageItem.EncryptionMethod != Cryption.EncryptionMethod.PlanText)
                         {
                             // Add here deeper user credentials decryption, when implemented.
 
-                            throw new NotImplementedException("Decryption is not implemented jet.");
+                            throw new NotImplementedException ("Decryption is not implemented jet.");
                         }
                         else
                         {
                             result.UserName = fileStorageItem.UserName;
                             result.UserPass = fileStorageItem.UserPass;
                         }
-                        cryptionMethod = (Cryption.CryptionMethod)fileStorageItem.CryptionMethod;
+                        cryptionMethod = (Cryption.EncryptionMethod) fileStorageItem.EncryptionMethod;
 
                         return result;
                     }
@@ -106,20 +106,20 @@ namespace NetUse.NetConfigFile
         /// <param name="storageItem">NetConfigData to use</param>
         /// <param name="cryptionMethod">Select the user credentials encryption method</param>
         /// <returns>New FileStorageItem object</returns>
-        internal FileStorageItem ToFileStorageItem(Cryption.CryptionMethod cryptionMethod)
+        internal FileStorageItem ToFileStorageItem (Cryption.EncryptionMethod cryptionMethod)
         {
             try
             {
-                if (cryptionMethod != Cryption.CryptionMethod.PlanText)
+                if (cryptionMethod != Cryption.EncryptionMethod.PlanText)
                 {
                     // Add here deeper user credentials encryption, when implemented.
 
-                    throw new NotImplementedException("Encryption is not implemented jet.");
+                    throw new NotImplementedException ("Encryption is not implemented jet.");
                 }
 
-                return new FileStorageItem(
+                return new FileStorageItem (
                     this.OnlyDisconnect,
-                    (int)cryptionMethod,
+                    (int) cryptionMethod,
                     this.DeviceName,
                     this.ShareName,
                     this.UserName,

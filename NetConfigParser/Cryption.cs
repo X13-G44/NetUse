@@ -10,11 +10,11 @@ namespace NetUse.NetConfigFile
 {
     public class Cryption
     {
-        public enum CryptionMethod
+        public enum EncryptionMethod
         {
             PlanText,
 
-            // No other cryption method are implemented yet.
+            // No other encryption method are implemented yet.
         }
     }
 }

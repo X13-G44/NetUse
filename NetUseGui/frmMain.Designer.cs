@@ -388,7 +388,6 @@
             // 
             // cbDeviceLetter
             // 
-            this.cbDeviceLetter.FormattingEnabled = true;
             this.cbDeviceLetter.Items.AddRange(new object[] {
             "A",
             "B",
@@ -397,10 +396,11 @@
             "E"});
             this.cbDeviceLetter.Location = new System.Drawing.Point(111, 17);
             this.cbDeviceLetter.Name = "cbDeviceLetter";
-            this.cbDeviceLetter.Size = new System.Drawing.Size(38, 21);
+            this.cbDeviceLetter.Size = new System.Drawing.Size(60, 21);
             this.cbDeviceLetter.TabIndex = 0;
             this.cbDeviceLetter.Text = "Z";
             this.cbDeviceLetter.SelectedIndexChanged += new System.EventHandler(this.onGuiElementChange);
+            this.cbDeviceLetter.Leave += new System.EventHandler(this.cbDeviceLetter_Leave);
             // 
             // label2
             // 
