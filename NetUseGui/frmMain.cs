@@ -971,7 +971,7 @@ namespace NetUseGui
                 saveFileDialog1.DefaultExt = "*.netcfg";
                 saveFileDialog1.InitialDirectory = currentPath;
                 saveFileDialog1.RestoreDirectory = true;
-                saveFileDialog1.FileName = String.Empty;
+                saveFileDialog1.FileName = (this.CurrentNetConfigurationFile != null && !String.IsNullOrEmpty (this.CurrentNetConfigurationFile.CurrentFile)) ? Path.GetFileNameWithoutExtension(this.CurrentNetConfigurationFile.CurrentFile) : String.Empty;
 
                 if (saveFileDialog1.ShowDialog () == DialogResult.OK)
                 {
