@@ -478,6 +478,26 @@ namespace NetUseGui
 
 
 
+        private void btnMenStrip_CopyFilenameToClipboard_Click (object sender, EventArgs e)
+        {
+            if (this.CurrentNetConfigurationFile != null && !String.IsNullOrEmpty (this.CurrentNetConfigurationFile.CurrentFile))
+            {
+                System.Windows.Forms.Clipboard.SetText (Path.GetFileNameWithoutExtension (this.CurrentNetConfigurationFile.CurrentFile));
+            }
+        }
+
+
+
+        private void btnMenStrip_CopyFilenPathToClipboard_Click (object sender, EventArgs e)
+        {
+            if (this.CurrentNetConfigurationFile != null && !String.IsNullOrEmpty (this.CurrentNetConfigurationFile.CurrentFile))
+            {
+                System.Windows.Forms.Clipboard.SetText (this.CurrentNetConfigurationFile.CurrentFile);
+            }
+        }
+
+
+
         #endregion
 
 
@@ -511,6 +531,8 @@ namespace NetUseGui
             btnMenStrip_Save.Enabled = showMainPanel;
             btnMenStrip_SaveAs.Enabled = showMainPanel;
             btnMenStrip_RunCmd.Enabled = showMainPanel;
+            btnMenStrip_CopyFilenameToClipboard.Enabled = showMainPanel;
+            btnMenStrip_CopyFilenPathToClipboard.Enabled = showMainPanel;
         }
 
 
@@ -1048,7 +1070,7 @@ namespace NetUseGui
 
                     using (RegistryKey key11 = key1.CreateSubKey ("DefaultIcon"))
                     {
-                        key11.SetValue ("", $"\"{currentAssembly.Location}\",-1", RegistryValueKind.ExpandString);
+                        key11.SetValue ("", $"\"{currentAssembly.Location}\",-2", RegistryValueKind.ExpandString);
                     }
 
                     using (RegistryKey key12 = key1.CreateSubKey ("shell"))

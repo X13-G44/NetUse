@@ -42,6 +42,8 @@
             this.btnMenStrip_RegFileExt = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnMenStrip_RunCmd = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMenStrip_CopyFilenameToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMenStrip_CopyFilenPathToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnMenStrip_About = new System.Windows.Forms.ToolStripMenuItem();
             this.panelStart = new System.Windows.Forms.Panel();
@@ -74,6 +76,8 @@
             this.rbConnectShare = new System.Windows.Forms.RadioButton();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.panelStart.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -168,32 +172,52 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnMenStrip_RegFileExt,
             this.toolStripMenuItem2,
-            this.btnMenStrip_RunCmd});
+            this.btnMenStrip_RunCmd,
+            this.toolStripMenuItem4,
+            this.btnMenStrip_CopyFilenameToClipboard,
+            this.btnMenStrip_CopyFilenPathToClipboard,
+            this.toolStripMenuItem3});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // btnMenStrip_RegFileExt
             // 
             this.btnMenStrip_RegFileExt.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_RegFileExt.Image")));
             this.btnMenStrip_RegFileExt.Name = "btnMenStrip_RegFileExt";
-            this.btnMenStrip_RegFileExt.Size = new System.Drawing.Size(193, 22);
+            this.btnMenStrip_RegFileExt.Size = new System.Drawing.Size(297, 22);
             this.btnMenStrip_RegFileExt.Text = "Register File-Extension";
             this.btnMenStrip_RegFileExt.Click += new System.EventHandler(this.btnMenStrip_RegFileExt_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(190, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(294, 6);
             // 
             // btnMenStrip_RunCmd
             // 
             this.btnMenStrip_RunCmd.Enabled = false;
             this.btnMenStrip_RunCmd.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_RunCmd.Image")));
             this.btnMenStrip_RunCmd.Name = "btnMenStrip_RunCmd";
-            this.btnMenStrip_RunCmd.Size = new System.Drawing.Size(193, 22);
+            this.btnMenStrip_RunCmd.Size = new System.Drawing.Size(297, 22);
             this.btnMenStrip_RunCmd.Text = "Run Command";
             this.btnMenStrip_RunCmd.Click += new System.EventHandler(this.btnMenStrip_RunCmd_Click);
+            // 
+            // btnMenStrip_CopyFilenameToClipboard
+            // 
+            this.btnMenStrip_CopyFilenameToClipboard.Enabled = false;
+            this.btnMenStrip_CopyFilenameToClipboard.Name = "btnMenStrip_CopyFilenameToClipboard";
+            this.btnMenStrip_CopyFilenameToClipboard.Size = new System.Drawing.Size(297, 22);
+            this.btnMenStrip_CopyFilenameToClipboard.Text = "Copy Configuration filename to Clipboard";
+            this.btnMenStrip_CopyFilenameToClipboard.Click += new System.EventHandler(this.btnMenStrip_CopyFilenameToClipboard_Click);
+            // 
+            // btnMenStrip_CopyFilenPathToClipboard
+            // 
+            this.btnMenStrip_CopyFilenPathToClipboard.Enabled = false;
+            this.btnMenStrip_CopyFilenPathToClipboard.Name = "btnMenStrip_CopyFilenPathToClipboard";
+            this.btnMenStrip_CopyFilenPathToClipboard.Size = new System.Drawing.Size(297, 22);
+            this.btnMenStrip_CopyFilenPathToClipboard.Text = "Copy Configuration path to Clipboard";
+            this.btnMenStrip_CopyFilenPathToClipboard.Click += new System.EventHandler(this.btnMenStrip_CopyFilenPathToClipboard_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -542,6 +566,16 @@
             this.panelEdit.Size = new System.Drawing.Size(377, 482);
             this.panelEdit.TabIndex = 3;
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(294, 6);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(294, 6);
+            // 
             // frmMain
             // 
             this.AllowDrop = true;
@@ -626,6 +660,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnToolMen_RunCmd;
         private System.Windows.Forms.Label lbDragAndDropInfo;
+        private System.Windows.Forms.ToolStripMenuItem btnMenStrip_CopyFilenameToClipboard;
+        private System.Windows.Forms.ToolStripMenuItem btnMenStrip_CopyFilenPathToClipboard;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
     }
 }
 
