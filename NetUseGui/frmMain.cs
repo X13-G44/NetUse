@@ -488,7 +488,7 @@ namespace NetUseGui
 
 
 
-        private void btnMenStrip_CopyFilenPathToClipboard_Click (object sender, EventArgs e)
+        private void btnMenStrip_CopyFilePathToClipboard_Click (object sender, EventArgs e)
         {
             if (this.CurrentNetConfigurationFile != null && !String.IsNullOrEmpty (this.CurrentNetConfigurationFile.CurrentFile))
             {
@@ -532,7 +532,7 @@ namespace NetUseGui
             btnMenStrip_SaveAs.Enabled = showMainPanel;
             btnMenStrip_RunCmd.Enabled = showMainPanel;
             btnMenStrip_CopyFilenameToClipboard.Enabled = showMainPanel;
-            btnMenStrip_CopyFilenPathToClipboard.Enabled = showMainPanel;
+            btnMenStrip_CopyFilePathToClipboard.Enabled = showMainPanel;
         }
 
 
