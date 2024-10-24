@@ -78,6 +78,7 @@
             this.rbConnectShare = new System.Windows.Forms.RadioButton();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.btnMenStrip_OpenConfigFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panelStart.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -176,7 +177,8 @@
             this.toolStripMenuItem4,
             this.btnMenStrip_CopyFilenameToClipboard,
             this.btnMenStrip_CopyFilePathToClipboard,
-            this.toolStripMenuItem3});
+            this.toolStripMenuItem3,
+            this.btnMenStrip_OpenConfigFolder});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -576,6 +578,13 @@
             this.panelEdit.Size = new System.Drawing.Size(377, 482);
             this.panelEdit.TabIndex = 3;
             // 
+            // btnMenStrip_OpenConfigFolder
+            // 
+            this.btnMenStrip_OpenConfigFolder.Name = "btnMenStrip_OpenConfigFolder";
+            this.btnMenStrip_OpenConfigFolder.Size = new System.Drawing.Size(297, 22);
+            this.btnMenStrip_OpenConfigFolder.Text = "Open Configuration folder";
+            this.btnMenStrip_OpenConfigFolder.Click += new System.EventHandler(this.btnMenStrip_OpenConfigFolder_Click);
+            // 
             // frmMain
             // 
             this.AllowDrop = true;
@@ -664,6 +673,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnMenStrip_CopyFilePathToClipboard;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem btnMenStrip_OpenConfigFolder;
     }
 }
 

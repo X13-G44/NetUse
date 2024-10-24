@@ -19,6 +19,7 @@ using System.Reflection;
 using Microsoft.Win32;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 
 
@@ -482,7 +483,7 @@ namespace NetUseGui
         {
             if (this.CurrentNetConfigurationFile != null && !String.IsNullOrEmpty (this.CurrentNetConfigurationFile.CurrentFile))
             {
-                System.Windows.Forms.Clipboard.SetText (Path.GetFileNameWithoutExtension (this.CurrentNetConfigurationFile.CurrentFile));
+                Clipboard.SetText (Path.GetFileNameWithoutExtension (this.CurrentNetConfigurationFile.CurrentFile));
             }
         }
 
@@ -492,8 +493,15 @@ namespace NetUseGui
         {
             if (this.CurrentNetConfigurationFile != null && !String.IsNullOrEmpty (this.CurrentNetConfigurationFile.CurrentFile))
             {
-                System.Windows.Forms.Clipboard.SetText (this.CurrentNetConfigurationFile.CurrentFile);
+                Clipboard.SetText (this.CurrentNetConfigurationFile.CurrentFile);
             }
+        }
+
+
+
+        private void btnMenStrip_OpenConfigFolder_Click (object sender, EventArgs e)
+        {
+            ShowNeetConfigurationFolder ();
         }
 
 
@@ -971,7 +979,7 @@ namespace NetUseGui
                 saveFileDialog1.DefaultExt = "*.netcfg";
                 saveFileDialog1.InitialDirectory = currentPath;
                 saveFileDialog1.RestoreDirectory = true;
-                saveFileDialog1.FileName = (this.CurrentNetConfigurationFile != null && !String.IsNullOrEmpty (this.CurrentNetConfigurationFile.CurrentFile)) ? Path.GetFileNameWithoutExtension(this.CurrentNetConfigurationFile.CurrentFile) : String.Empty;
+                saveFileDialog1.FileName = (this.CurrentNetConfigurationFile != null && !String.IsNullOrEmpty (this.CurrentNetConfigurationFile.CurrentFile)) ? Path.GetFileNameWithoutExtension (this.CurrentNetConfigurationFile.CurrentFile) : String.Empty;
 
                 if (saveFileDialog1.ShowDialog () == DialogResult.OK)
                 {
@@ -1147,6 +1155,27 @@ namespace NetUseGui
             catch (Exception ex)
             {
                 return CommonResult.MakeExeption (ex.Message);
+            }
+        }
+
+
+
+        private void ShowNeetConfigurationFolder ()
+        {
+            try
+            {
+                Assembly currentAssembly = Assembly.GetExecutingAssembly ();
+                String currentPath = Path.GetDirectoryName (currentAssembly.Location);
+
+                Process prc = new Process ();
+                prc.StartInfo.FileName = "explorer";
+                prc.StartInfo.Arguments = currentPath;
+
+                prc.Start ();
+            }
+            catch
+            {
+                ;
             }
         }
 
