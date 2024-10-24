@@ -150,29 +150,30 @@ namespace NetUse.Core
 
                     if (funcResult.Success)
                     {
+                        // /////////////////////////////////////////////////////
 #warning @@@@@
                         //#warning The check don't works. Function DriveInfo.GetDrives makes trouble!
-                        //                        // Time for the OS to disconnect / close the connection.
-                        //                        Task.Delay (2000).Wait ();
-                        //                        return CommonResult.MakeSuccess (null, $"Connected share \"{deviceName}:\\\" was disconnected (unconfirmed)");
+                        // Time for the OS to disconnect / close the connection.
+                        Task.Delay (2000).Wait ();
+                        return CommonResult.MakeSuccess (null, $"Connected share \"{deviceName}:\\\" was disconnected (unconfirmed)");
 
-                        // Try to check the disconnection up to 10sec.
-                        for (int recheckLoopCnt = 0; recheckLoopCnt < 10; recheckLoopCnt++)
-                        {
-                            // Time for the OS to disconnect / close the connection.
-                            Task.Delay (1500).Wait ();
+                        //// Try to check the disconnection up to 5sec.
+                        //for (int recheckLoopCnt = 0; recheckLoopCnt < 5; recheckLoopCnt++)
+                        //{
+                        //    // Time for the OS to disconnect / close the connection.
+                        //    Task.Delay (1500).Wait ();
 
-                            // Make a second check...
-                            allDrives = DriveInfo.GetDrives ();
-                            deviceQuerry = allDrives.FirstOrDefault (d => d.Name[0] == deviceName && d.IsReady);
+                        //    // Make a second check...
+                        //    allDrives = DriveInfo.GetDrives ();
+                        //    deviceQuerry = allDrives.FirstOrDefault (d => d.Name[0] == deviceName && d.IsReady);
 
-                            if (deviceQuerry != null)
-                            {
-                                return CommonResult.MakeSuccess (null, $"Connected share \"{deviceName}:\\\" was disconnected");
-                            }
+                        //    if (deviceQuerry != null)
+                        //    {
+                        //        return CommonResult.MakeSuccess (null, $"Connected share \"{deviceName}:\\\" was disconnected");
+                        //    }
+                        //}
 
-                            // ///////////////////////////////////
-                        }
+                        // /////////////////////////////////////////////////////
 
                         return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_ConDeviceStillPresent, $"The device name \"{deviceName}:\\\" is after net use disconnect command still present");
                     }

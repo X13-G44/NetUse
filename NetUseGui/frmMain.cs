@@ -20,6 +20,7 @@ using Microsoft.Win32;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 
 
@@ -431,16 +432,18 @@ namespace NetUseGui
                 }
             }
 
-            commonResult = RunCommand (netConfigData);
+            RunCommand (netConfigData);
 
-            if (commonResult.Success)
-            {
-                MessageBox.Show ("The Net Use command was executed without problems.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{commonResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //commonResult = RunCommand (netConfigData);
+            //  
+            //if (commonResult.Success)
+            //{
+            //    MessageBox.Show ("The Net Use command was executed without problems.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else
+            //{
+            //    MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{commonResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
 
@@ -1124,42 +1127,83 @@ namespace NetUseGui
         /// </summary>
         /// <param name="netConfigurationData"></param>
         /// <returns></returns>
-        private CommonResult RunCommand (NetConfigData netConfigurationData)
+        private async void RunCommand (NetConfigData netConfigurationData)
         {
-            try
+
+            btnMenStrip_RunCmd.Enabled = false;
+            btnToolMen_RunCmd.Enabled = false;
+
+            toolStripProgressBar1.Visible = true;
+            toolStripProgressBar1.Width = statusStrip1.Width - 30;
+
+            var result = await RunCommandAsync (netConfigurationData);
+
+            btnMenStrip_RunCmd.Enabled = true;
+            btnToolMen_RunCmd.Enabled = true;
+
+            toolStripProgressBar1.Visible = false;
+
+            if (result.Success)
             {
-                CommonResult funcResult = null;
-
-
-                if (netConfigurationData.OnlyDisconnect)
-                {
-                    return CoreFunc.DisconnectNetShare (netConfigurationData.DeviceName);
-                }
-                else
-                {
-                    if (netConfigurationData.DisconnectFirst)
-                    {
-                        funcResult = CoreFunc.DisconnectNetShare (netConfigurationData.DeviceName);
-                    }
-
-                    if (funcResult == null || funcResult.Success)
-                    {
-                        return CoreFunc.ExecuteConnectNetCommand (netConfigurationData.DeviceName, netConfigurationData.ShareName, netConfigurationData.UserName, netConfigurationData.UserPass);
-                    }
-                    else
-                    {
-                        return funcResult;
-                    }
-                }
+                MessageBox.Show ("The Net Use command was executed without problems.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception ex)
+            else
             {
-                return CommonResult.MakeExeption (ex.Message);
+                MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{result.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
 
+        /// <summary>
+        /// Execute the Net Use command asynchronously.
+        /// </summary>
+        /// <param name="netConfigurationData"></param>
+        /// <returns></returns>
+        private Task<CommonResult> RunCommandAsync (NetConfigData netConfigurationData)
+        {
+            return Task<CommonResult>.Run (() =>
+            {
+                CommonResult funcResult = null;
+
+
+                try
+                {
+
+                    if (netConfigurationData.OnlyDisconnect)
+                    {
+                        return CoreFunc.DisconnectNetShare (netConfigurationData.DeviceName);
+                    }
+                    else
+                    {
+                        if (netConfigurationData.DisconnectFirst)
+                        {
+                            funcResult = CoreFunc.DisconnectNetShare (netConfigurationData.DeviceName);
+                        }
+
+                        if (funcResult == null || funcResult.Success)
+                        {
+                            return CoreFunc.ExecuteConnectNetCommand (netConfigurationData.DeviceName, netConfigurationData.ShareName, netConfigurationData.UserName, netConfigurationData.UserPass);
+                        }
+                        else
+                        {
+                            return funcResult;
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return CommonResult.MakeExeption (ex.Message);
+                }
+            });
+        }
+
+
+
+        /// <summary>
+        /// Open a new MS Explorer window and point it to the current assembly file (default Net Configuration file storage place).
+        /// </summary>
         private void ShowNeetConfigurationFolder ()
         {
             try

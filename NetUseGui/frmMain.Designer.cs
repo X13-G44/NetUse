@@ -79,6 +79,8 @@
             this.panelEdit = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.btnMenStrip_OpenConfigFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panelStart.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -90,6 +92,8 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 506);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(377, 22);
@@ -585,6 +589,14 @@
             this.btnMenStrip_OpenConfigFolder.Text = "Open Configuration folder";
             this.btnMenStrip_OpenConfigFolder.Click += new System.EventHandler(this.btnMenStrip_OpenConfigFolder_Click);
             // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(347, 16);
+            this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.toolStripProgressBar1.Value = 100;
+            this.toolStripProgressBar1.Visible = false;
+            // 
             // frmMain
             // 
             this.AllowDrop = true;
@@ -603,6 +615,8 @@
             this.Shown += new System.EventHandler(this.frmMain_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmMain_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.frmMain_DragEnter);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panelStart.ResumeLayout(false);
@@ -674,6 +688,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem btnMenStrip_OpenConfigFolder;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
     }
 }
 
