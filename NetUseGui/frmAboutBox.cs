@@ -1,4 +1,27 @@
-﻿using System;
+﻿///<copyright>
+/// Copyright (c) 2024 Christian Harscher (alias X13-G44)
+///
+/// This program is free software: you can redistribute it and/or modify
+/// it under the terms of the GNU Affero General Public License as
+/// published by the Free Software Foundation, either version 3 of the
+/// License, or (at your option) any later version.
+///
+/// This program is distributed in the hope that it will be useful,
+/// but WITHOUT ANY WARRANTY; without even the implied warranty of
+/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/// GNU Affero General Public License for more details.
+///
+/// You should have received a copy of the GNU Affero General Public License
+/// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+///
+/// Contact: info@x13-g44.com
+/// </copyright>
+///
+/// <author>Christian Harscher (alias X13-G44)</author>
+
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -23,16 +46,22 @@ namespace NetUseGui
             this.labelVersion.Text = String.Format ("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            //this.textBoxDescription.Text = AssemblyDescription;
+            //this.labelCompanyName.Text = AssemblyCompany;
+            this.labelCompanyName.Text = "https://github.com/x13-44/netuse";
 
+            //this.textBoxDescription.Text = AssemblyDescription;
             this.textBoxDescription.Lines = new List<string> () {
-                "This program, in conjunction with NetUse.exe, offers a simple graphical user interface to easily use the Microsoft Windows internal console program.\"NET\".",
-                "The solution is designed so that NetUse.exe is integrated and called by other tools (for example: Powershell, Batch files, backup tools, ...).",
-                " ",
+                "With this program solution you can easily use the Micosoft Windows CLI tool “NET” to create network connections.\nThe focus of this solution is the integration into other (third party) programs such as backup tools, batch files, Powershell, ... .\n",
+                "The program solution consists of 2 parts:\n",
+                "- NetUseGui.exe is used to create and edit configuration files for the control of “NET”.\n",
+                "- NetUse.exe is called or integrated by the third party programs to establish the network connection.\n",
+                "\n",
+                "License:\n",
+                "This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. You should have received a copy of the GNU Affero General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.\n",
+                "\n",
                 "Third Party Licenses:",
-                "- Menu and program ,icons:",
-                "\tIcons by Axialis",
-                "\t Axialis Free Icon License (\"https://www.axialis.com\")",
+                "- Menu icons, Solution icons:",
+                "  Axialis Free Icon License (\"https://www.axialis.com\")",
             }.ToArray ();
         }
 

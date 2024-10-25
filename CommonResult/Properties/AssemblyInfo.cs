@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("Net Use Commonlib")]
-[assembly: AssemblyDescription("Program to manage network shares with help of the Microsoft(c) command line tool NET")]
+[assembly: AssemblyDescription ("Program to manage network shares with help of the Microsoft command line tool NET")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("X13-G44")]
+[assembly: AssemblyCompany ("")]
 [assembly: AssemblyProduct("Net Use")]
-[assembly: AssemblyCopyright("Copyright © 2024 X13-G44")]
+[assembly: AssemblyCopyright ("Copyright © 2024 Christian Harscher aka X13-G44")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Buildnummer
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion ("1.0.1.0")]
+[assembly: AssemblyFileVersion ("1.0.1.0")]

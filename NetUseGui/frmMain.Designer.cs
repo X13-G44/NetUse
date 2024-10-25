@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnMenStrip_MakeNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +47,7 @@
             this.btnMenStrip_CopyFilenameToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.btnMenStrip_CopyFilePathToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnMenStrip_OpenConfigFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnMenStrip_About = new System.Windows.Forms.ToolStripMenuItem();
             this.panelStart = new System.Windows.Forms.Panel();
@@ -78,8 +80,7 @@
             this.rbConnectShare = new System.Windows.Forms.RadioButton();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.btnMenStrip_OpenConfigFolder = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.btnMenStrip_AxalisBaner = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panelStart.SuspendLayout();
@@ -100,12 +101,21 @@
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(347, 16);
+            this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.toolStripProgressBar1.Value = 100;
+            this.toolStripProgressBar1.Visible = false;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.btnMenStrip_AxalisBaner});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(377, 24);
@@ -235,6 +245,13 @@
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(294, 6);
             // 
+            // btnMenStrip_OpenConfigFolder
+            // 
+            this.btnMenStrip_OpenConfigFolder.Name = "btnMenStrip_OpenConfigFolder";
+            this.btnMenStrip_OpenConfigFolder.Size = new System.Drawing.Size(297, 22);
+            this.btnMenStrip_OpenConfigFolder.Text = "Open Configuration folder";
+            this.btnMenStrip_OpenConfigFolder.Click += new System.EventHandler(this.btnMenStrip_OpenConfigFolder_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -247,7 +264,7 @@
             // 
             this.btnMenStrip_About.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_About.Image")));
             this.btnMenStrip_About.Name = "btnMenStrip_About";
-            this.btnMenStrip_About.Size = new System.Drawing.Size(95, 22);
+            this.btnMenStrip_About.Size = new System.Drawing.Size(180, 22);
             this.btnMenStrip_About.Text = "Info";
             this.btnMenStrip_About.Click += new System.EventHandler(this.btnMenStrip_About_Click);
             // 
@@ -582,20 +599,14 @@
             this.panelEdit.Size = new System.Drawing.Size(377, 482);
             this.panelEdit.TabIndex = 3;
             // 
-            // btnMenStrip_OpenConfigFolder
+            // btnMenStrip_AxalisBaner
             // 
-            this.btnMenStrip_OpenConfigFolder.Name = "btnMenStrip_OpenConfigFolder";
-            this.btnMenStrip_OpenConfigFolder.Size = new System.Drawing.Size(297, 22);
-            this.btnMenStrip_OpenConfigFolder.Text = "Open Configuration folder";
-            this.btnMenStrip_OpenConfigFolder.Click += new System.EventHandler(this.btnMenStrip_OpenConfigFolder_Click);
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(347, 16);
-            this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.toolStripProgressBar1.Value = 100;
-            this.toolStripProgressBar1.Visible = false;
+            this.btnMenStrip_AxalisBaner.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnMenStrip_AxalisBaner.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnMenStrip_AxalisBaner.Name = "btnMenStrip_AxalisBaner";
+            this.btnMenStrip_AxalisBaner.Size = new System.Drawing.Size(99, 20);
+            this.btnMenStrip_AxalisBaner.Text = "Icons by Axialis";
+            this.btnMenStrip_AxalisBaner.Click += new System.EventHandler(this.btnMenStrip_AxalisBaner_Click);
             // 
             // frmMain
             // 
@@ -689,6 +700,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem btnMenStrip_OpenConfigFolder;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.ToolStripMenuItem btnMenStrip_AxalisBaner;
     }
 }
 

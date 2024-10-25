@@ -1,4 +1,27 @@
-﻿using System;
+﻿///<copyright>
+/// Copyright (c) 2024 Christian Harscher (alias X13-G44)
+///
+/// This program is free software: you can redistribute it and/or modify
+/// it under the terms of the GNU Affero General Public License as
+/// published by the Free Software Foundation, either version 3 of the
+/// License, or (at your option) any later version.
+///
+/// This program is distributed in the hope that it will be useful,
+/// but WITHOUT ANY WARRANTY; without even the implied warranty of
+/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/// GNU Affero General Public License for more details.
+///
+/// You should have received a copy of the GNU Affero General Public License
+/// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+///
+/// Contact: info@x13-g44.com
+/// </copyright>
+///
+/// <author>Christian Harscher (alias X13-G44)</author>
+
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,7 +44,6 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Runtime.InteropServices.WindowsRuntime;
-
 
 
 
@@ -396,7 +418,7 @@ namespace NetUseGui
 
         private void btnMenStrip_RunCmd_Click (object sender, EventArgs e)
         {
-            CommonResult commonResult;
+            //CommonResult commonResult;
             NetConfigData netConfigData = BuildNetConfigData ();
 
 
@@ -505,6 +527,13 @@ namespace NetUseGui
         private void btnMenStrip_OpenConfigFolder_Click (object sender, EventArgs e)
         {
             ShowNeetConfigurationFolder ();
+        }
+
+
+
+        private void btnMenStrip_AxalisBaner_Click (object sender, EventArgs e)
+        {
+            ShowAxialisHomepage ();
         }
 
 
@@ -806,37 +835,6 @@ namespace NetUseGui
             }
 
             return hasInvalidChar;
-
-            #region RegEx examples:
-
-            // Example source: https://learn.microsoft.com/en-us/dotnet/standard/base-types/how-to-strip-invalid-characters-from-a-string
-            //
-            //static string CleanInput(string strIn)
-            //{
-            //    // Replace invalid characters with empty strings.
-            //    try
-            //    {
-            //        return Regex.Replace(strIn, @"[^\w\.@-]", "",
-            //                             RegexOptions.None, TimeSpan.FromSeconds(1.5));
-            //    }
-            //    // If we timeout when replacing invalid characters,
-            //    // we should return Empty.
-            //    catch (RegexMatchTimeoutException)
-            //    {
-            //        return String.Empty;
-            //    }
-            //}
-
-            // Example source: https://www.csharphelper.com/howtos/howto_remove_non_ascii.html
-            //
-            //public static string TrimNonAscii(this string value)
-            //{
-            //    string pattern = "[^ -~]+";
-            //    Regex reg_exp = new Regex(pattern);
-            //    return reg_exp.Replace(value, "");
-            //}
-
-            #endregion
         }
 
 
@@ -1214,6 +1212,30 @@ namespace NetUseGui
                 Process prc = new Process ();
                 prc.StartInfo.FileName = "explorer";
                 prc.StartInfo.Arguments = currentPath;
+
+                prc.Start ();
+            }
+            catch
+            {
+                ;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Show the website from Axialis, the source of our icons.
+        /// It is a requirement of the license therm.
+        /// </summary>
+        private void ShowAxialisHomepage ()
+        {
+            try
+            {
+                Assembly currentAssembly = Assembly.GetExecutingAssembly ();
+                String currentPath = Path.GetDirectoryName (currentAssembly.Location);
+
+                Process prc = new Process ();
+                prc.StartInfo.FileName = "https://www.axialis.com";
 
                 prc.Start ();
             }
