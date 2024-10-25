@@ -85,7 +85,21 @@ namespace NetUse.Core
 
             try
             {
-                argString = disconnectOnly ? $"use {deviceName}: /delete" : $"use {deviceName}: {shareName} /persistent:no /user:{userName} {userPass}";
+                if (disconnectOnly == false)
+                {
+                    argString = $"use {deviceName}: {shareName} /persistent:no /user:{userName} {userPass}";
+                }
+                else
+                {
+                    if (deviceName != ' ')
+                    {
+                        argString = $"use {deviceName}: /delete";
+                    }
+                    else
+                    {
+                        argString = $"use * /delete";
+                    }
+                }
 
                 prc.StartInfo.FileName = "net";
                 prc.StartInfo.Arguments = argString;
@@ -211,6 +225,25 @@ namespace NetUse.Core
 
                     return CommonResult.MakeSuccess (null, $"No connected share with name \"{deviceName}:\\\" was found");
                 }
+            }
+            catch (Exception ex)
+            {
+                return CommonResult.MakeExeption (ex.Message);
+            }
+        }
+
+
+
+        /// <summary>
+        /// This function tries to disconnect all network shares.
+        /// </summary>
+        /// <returns></returns>
+        static public CommonResult DisconnectAllNetShare ()
+        {
+            try
+            {
+                // Disconnect all active shares.
+                return ExecuteDisconnectNetCommand (' ');
             }
             catch (Exception ex)
             {

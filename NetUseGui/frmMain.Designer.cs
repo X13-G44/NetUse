@@ -81,6 +81,8 @@
             this.panelEdit = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.btnMenStrip_AxalisBaner = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnMenStrip_DisconnectAllShares = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panelStart.SuspendLayout();
@@ -192,7 +194,9 @@
             this.btnMenStrip_CopyFilenameToClipboard,
             this.btnMenStrip_CopyFilePathToClipboard,
             this.toolStripMenuItem3,
-            this.btnMenStrip_OpenConfigFolder});
+            this.btnMenStrip_OpenConfigFolder,
+            this.toolStripMenuItem5,
+            this.btnMenStrip_DisconnectAllShares});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -608,6 +612,18 @@
             this.btnMenStrip_AxalisBaner.Text = "Icons by Axialis";
             this.btnMenStrip_AxalisBaner.Click += new System.EventHandler(this.btnMenStrip_AxalisBaner_Click);
             // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(294, 6);
+            // 
+            // btnMenStrip_DisconnectAllShares
+            // 
+            this.btnMenStrip_DisconnectAllShares.Name = "btnMenStrip_DisconnectAllShares";
+            this.btnMenStrip_DisconnectAllShares.Size = new System.Drawing.Size(297, 22);
+            this.btnMenStrip_DisconnectAllShares.Text = "Disconnect all NetworkShares";
+            this.btnMenStrip_DisconnectAllShares.Click += new System.EventHandler(this.btnMenStrip_DisconnectAllShares_Click);
+            // 
             // frmMain
             // 
             this.AllowDrop = true;
@@ -701,6 +717,8 @@
         private System.Windows.Forms.ToolStripMenuItem btnMenStrip_OpenConfigFolder;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripMenuItem btnMenStrip_AxalisBaner;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem btnMenStrip_DisconnectAllShares;
     }
 }
 

@@ -526,7 +526,7 @@ namespace NetUseGui
 
         private void btnMenStrip_OpenConfigFolder_Click (object sender, EventArgs e)
         {
-            ShowNeetConfigurationFolder ();
+            ShowNetConfigurationFolder ();
         }
 
 
@@ -534,6 +534,20 @@ namespace NetUseGui
         private void btnMenStrip_AxalisBaner_Click (object sender, EventArgs e)
         {
             ShowAxialisHomepage ();
+        }
+
+
+
+        private void btnMenStrip_DisconnectAllShares_Click (object sender, EventArgs e)
+        {
+            CommonResult funcResult;
+
+
+            funcResult = CoreFunc.DisconnectAllNetShare ();
+            if (funcResult.Success != true)
+            {
+                MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{funcResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -1202,7 +1216,7 @@ namespace NetUseGui
         /// <summary>
         /// Open a new MS Explorer window and point it to the current assembly file (default Net Configuration file storage place).
         /// </summary>
-        private void ShowNeetConfigurationFolder ()
+        private void ShowNetConfigurationFolder ()
         {
             try
             {

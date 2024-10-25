@@ -105,7 +105,7 @@ namespace NetUse.NetConfigFile
                                 return CommonResult.MakeSuccess ();
                             }
 
-                            return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_FileReadParsing, $"Could not parse Net Use Configuration file content. Maybe incompatible version");
+                            return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_FileReadParsing, $"Could not parse Net Use Configuration file content. Maybe incompatible version. Check for new version from of this application");
                         }
                     }
                     catch (Exception ex)
