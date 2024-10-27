@@ -17,7 +17,7 @@ In addition, the configuration files with the file extension _.netcfg_ can be re
 The program is so far executable and _almost_ completed.
 The only 2 improvements I can think of are an **encryption** of the passwords and a **selection list** of the recently opened configuration files "Recently Opened Files".
 
-# About the IDE
+# Getting Started
 The project was created using Visual Studio 2022. The language used is C# and the framework is .NET Framework 4.8.
 
 # Licensing
