@@ -45,7 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommonResult\NetUse.Common.csproj">
+    <ProjectReference Include="..\NetUse.Common\NetUse.Common.csproj">
       <Project>{623a72eb-43a5-4abe-bea4-593128a68806}</Project>
       <Name>NetUse.Common</Name>
     </ProjectReference>
