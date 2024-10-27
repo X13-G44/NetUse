@@ -50,17 +50,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommonResult\NetUse.Common.csproj">
+    <ProjectReference Include="..\NetUse.Common\NetUse.Common.csproj">
       <Project>{623a72eb-43a5-4abe-bea4-593128a68806}</Project>
       <Name>NetUse.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NetConfigParser\NetUse.NetConfigFile.csproj">
-      <Project>{cf29ed7c-fc72-4342-b73d-bb7924504e32}</Project>
-      <Name>NetUse.NetConfigFile</Name>
     </ProjectReference>
     <ProjectReference Include="..\NetUse.Core\NetUse.Core.csproj">
       <Project>{b4cb6f0e-2edd-465d-a5e9-c94b8e3f640f}</Project>
       <Name>NetUse.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetUse.NetConfigFile\NetUse.NetConfigFile.csproj">
+      <Project>{cf29ed7c-fc72-4342-b73d-bb7924504e32}</Project>
+      <Name>NetUse.NetConfigFile</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
