@@ -540,14 +540,21 @@ namespace NetUseGui
 
         private void btnMenStrip_DisconnectAllShares_Click (object sender, EventArgs e)
         {
-            CommonResult funcResult;
+            // Note: Command NET USE request sometimes an acknowledge from the user by pressing a key.
+            //       We can use the input stream to send this acknowledge
+            //       - or -
+            //       we use in a next version from this program a Shell API command (instead of NEt USE) to mange the network shares.
+            //       Temporary, we disable this feature.
 
 
-            funcResult = CoreFunc.DisconnectAllNetShare ();
-            if (funcResult.Success != true)
-            {
-                MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{funcResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //CommonResult funcResult;
+
+
+            //funcResult = CoreFunc.DisconnectAllNetShare ();
+            //if (funcResult.Success != true)
+            //{
+            //    MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{funcResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
 

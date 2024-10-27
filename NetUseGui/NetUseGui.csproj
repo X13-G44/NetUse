@@ -37,7 +37,7 @@
     </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <Win32Resource>C:\Users\chars\Documents\Projekte\NetShare\NetShare\RessourceFile\x.res</Win32Resource>
+    <Win32Resource>x.res</Win32Resource>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -48,8 +48,11 @@
             this.btnMenStrip_CopyFilePathToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnMenStrip_OpenConfigFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnMenStrip_DisconnectAllShares = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnMenStrip_About = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMenStrip_AxalisBaner = new System.Windows.Forms.ToolStripMenuItem();
             this.panelStart = new System.Windows.Forms.Panel();
             this.btnStartPanel_Open = new System.Windows.Forms.Button();
             this.btnStartPanel_MakeNew = new System.Windows.Forms.Button();
@@ -80,9 +83,6 @@
             this.rbConnectShare = new System.Windows.Forms.RadioButton();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.btnMenStrip_AxalisBaner = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnMenStrip_DisconnectAllShares = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panelStart.SuspendLayout();
@@ -256,6 +256,19 @@
             this.btnMenStrip_OpenConfigFolder.Text = "Open Configuration folder";
             this.btnMenStrip_OpenConfigFolder.Click += new System.EventHandler(this.btnMenStrip_OpenConfigFolder_Click);
             // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(294, 6);
+            // 
+            // btnMenStrip_DisconnectAllShares
+            // 
+            this.btnMenStrip_DisconnectAllShares.Enabled = false;
+            this.btnMenStrip_DisconnectAllShares.Name = "btnMenStrip_DisconnectAllShares";
+            this.btnMenStrip_DisconnectAllShares.Size = new System.Drawing.Size(297, 22);
+            this.btnMenStrip_DisconnectAllShares.Text = "Disconnect all NetworkShares";
+            this.btnMenStrip_DisconnectAllShares.Click += new System.EventHandler(this.btnMenStrip_DisconnectAllShares_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -268,9 +281,18 @@
             // 
             this.btnMenStrip_About.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_About.Image")));
             this.btnMenStrip_About.Name = "btnMenStrip_About";
-            this.btnMenStrip_About.Size = new System.Drawing.Size(180, 22);
+            this.btnMenStrip_About.Size = new System.Drawing.Size(95, 22);
             this.btnMenStrip_About.Text = "Info";
             this.btnMenStrip_About.Click += new System.EventHandler(this.btnMenStrip_About_Click);
+            // 
+            // btnMenStrip_AxalisBaner
+            // 
+            this.btnMenStrip_AxalisBaner.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnMenStrip_AxalisBaner.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnMenStrip_AxalisBaner.Name = "btnMenStrip_AxalisBaner";
+            this.btnMenStrip_AxalisBaner.Size = new System.Drawing.Size(99, 20);
+            this.btnMenStrip_AxalisBaner.Text = "Icons by Axialis";
+            this.btnMenStrip_AxalisBaner.Click += new System.EventHandler(this.btnMenStrip_AxalisBaner_Click);
             // 
             // panelStart
             // 
@@ -602,27 +624,6 @@
             this.panelEdit.Name = "panelEdit";
             this.panelEdit.Size = new System.Drawing.Size(377, 482);
             this.panelEdit.TabIndex = 3;
-            // 
-            // btnMenStrip_AxalisBaner
-            // 
-            this.btnMenStrip_AxalisBaner.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnMenStrip_AxalisBaner.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnMenStrip_AxalisBaner.Name = "btnMenStrip_AxalisBaner";
-            this.btnMenStrip_AxalisBaner.Size = new System.Drawing.Size(99, 20);
-            this.btnMenStrip_AxalisBaner.Text = "Icons by Axialis";
-            this.btnMenStrip_AxalisBaner.Click += new System.EventHandler(this.btnMenStrip_AxalisBaner_Click);
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(294, 6);
-            // 
-            // btnMenStrip_DisconnectAllShares
-            // 
-            this.btnMenStrip_DisconnectAllShares.Name = "btnMenStrip_DisconnectAllShares";
-            this.btnMenStrip_DisconnectAllShares.Size = new System.Drawing.Size(297, 22);
-            this.btnMenStrip_DisconnectAllShares.Text = "Disconnect all NetworkShares";
-            this.btnMenStrip_DisconnectAllShares.Click += new System.EventHandler(this.btnMenStrip_DisconnectAllShares_Click);
             // 
             // frmMain
             // 
