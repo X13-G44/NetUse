@@ -1,9 +1,7 @@
 # Information
-
 Hello, this is my first project here in GitHub. So everything is probably not perfect yet...
 
 # What is NetUse?
-
 NetUse is a Windows program that allows you to create and disconnect Windows network shares. The focus is on the console integration by other programs, e.g. backup tools or batch scripts - without having to fiddle with the various parameters.
 
 The idea for the program came to me when I was trying to create network connections for a backup tool using batch scripts (_net use_). However, the required user passwords contained special characters that were invalid for the batch scripts.
@@ -18,6 +16,9 @@ In addition, the configuration files with the file extension _.netcfg_ can be re
 # Status
 The program is so far executable and _almost_ completed.
 The only 2 improvements I can think of are an **encryption** of the passwords and a **selection list** of the recently opened configuration files "Recently Opened Files".
+
+# About the IDE
+The project was created using Visual Studio 2022. The language used is C# and the framework is .NET Framework 4.8.
 
 # Licensing
 GNU Affero General Public License v3.0
