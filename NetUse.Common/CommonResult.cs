@@ -62,52 +62,52 @@ namespace NetUse.Common
 
             #region Program::CheckArgAndLoadNetCfgFile
 
-            E_CntOfStartParam = -5,
-            E_CfgFileNotFound = -6,
+            E_CntOfStartParam = -1,
+            E_CfgFileNotFound = -2,
 
             #endregion
 
             #region NetConfigFile::LoadFile
 
-            E_FileNotExists = -15,
-            E_FileRead = -16,
-            E_FileReadParsing = -17,
-            E_Deserialize = -18,
+            E_FileNotExists = -10,
+            E_FileRead = -11,
+            E_FileReadParsing = -12,
+            E_Deserialize = -13,
 
             #endregion
 
             #region NetConfigFile::WriteFile
 
-            E_FileExists = -25,
-            E_ConvertToFileStorageItem = -26,
-            E_FileOpenReadWrite = -27,
-            E_Serialize = -28,
+            E_FileExists = -20,
+            E_ConvertToFileStorageItem = -21,
+            E_FileOpenReadWrite = -22,
+            E_Serialize = -23,
 
             #endregion
 
-            #region CoreFunc::ExecuteNetCommand
+            #region CoreFunc::ExecuteCommand_WinApi, CoreFunc::ExecuteCommand_Cli
 
-            E_NetUse_Cli = -10,
-            E_NetUse_ShellApi = -11,
+            E_NetUse_Cli = -100,
+            E_NetUse_ShellApi = -101,
 
             #endregion
 
             #region CoreFunc::ConnectNetShare 
 
-            E_NotAllowedToDisconnect = -35,
+            E_NotAllowedToDisconnect = -110,
 
             #endregion
 
             #region CoreFunc::DisconnectNetShare 
 
-            E_ConDeviceIsNoShare = -35,
-            E_ConDeviceStillPresent = -36,
+            E_ConDeviceIsNoShare = -120,
+            E_ConDeviceStillPresent = -121,
 
             #endregion
 
             #region frmMain::RegisterNetConfigurationFileExtension
 
-            E_UnauthorizedAccessException = -40,
+            E_UnauthorizedAccessException = -200,
 
             #endregion
         }

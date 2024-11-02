@@ -21,15 +21,26 @@
 
 
 
+//#define WORKAROUND_DISCONNECTED_DETECTION
+#define USE_WIN32_API
+
+
+
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Configuration;
 using System.Runtime.CompilerServices;
+using System.Runtime.Versioning;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using NetUse.Common;
+using System.Runtime.InteropServices;
 
 
 
@@ -38,36 +49,236 @@ namespace NetUse.Core
     static public class CoreFunc
     {
         /// <summary>
-        /// Execute the Net Use command with connect parameter.
-        /// No checks will be performed about the current connection state (eg. already connected, ...)
+        /// This function tries to connect to a network share.
+        /// The function also check the device name state; if it is used by the os and must released first.
         /// </summary>
+        /// <param name="allowDisconnect">Set the parameter to release the (possible) assigned device name first</param>
         /// <param name="deviceName"></param>
         /// <param name="shareName"></param>
         /// <param name="userName"></param>
         /// <param name="userPass"></param>
         /// <returns></returns>
-        static public CommonResult ExecuteConnectNetCommand (char deviceName, string shareName, string userName, string userPass)
+        static public CommonResult ConnectNetShare (bool allowDisconnect, char deviceName, string shareName, string userName, string userPass)
         {
-            return ExecuteNetCommand (false, deviceName, shareName, userName, userPass);
+            try
+            {
+                CommonResult funcResult = null;
+
+
+                if (IsDeviceNameUsed (deviceName) == false)
+                {
+                    // Connect network share.
+#if USE_WIN32_API
+                    return ExecuteCommand_WinApi (false, deviceName, shareName, userName, userPass);
+#else
+                    return ExecuteCommand_Cli (false, deviceName, shareName, userName, userPass);
+#endif
+                }
+                else
+                {
+                    // The device name is used. Try to disconnect the assigned network share first - if allowed by configuration.
+
+                    if (allowDisconnect == false)
+                    {
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NotAllowedToDisconnect, $"Device name \"{deviceName}:\\\" is already assigned");
+                    }
+                    else
+                    {
+                        // Disconnect the network share.
+                        funcResult = DisconnectNetShare (deviceName);
+
+                        if (funcResult.Success != true)
+                        {
+                            return funcResult;
+                        }
+                    }
+
+#if USE_WIN32_API
+                    return ExecuteCommand_WinApi (false, deviceName, shareName, userName, userPass);
+#else
+                    return ExecuteCommand_Cli (false, deviceName, shareName, userName, userPass);
+#endif
+                }
+            }
+            catch (Exception ex)
+            {
+                return CommonResult.MakeExeption (ex.Message);
+            }
         }
 
 
 
         /// <summary>
-        /// Execute the Net Use command with disconnect parameter.
-        /// No checks will be performed about the current connection state (eg. already connected, ...)
+        /// This function tries to disconnect a network share.
+        /// A check about the current connection state is performed.
         /// </summary>
-        /// <param name="deviceName"></param>
+        /// <param name="deviceName">Device name (in upper char)</param>
         /// <returns></returns>
-        static public CommonResult ExecuteDisconnectNetCommand (char deviceName)
+        static public CommonResult DisconnectNetShare (char deviceName)
         {
-            return ExecuteNetCommand (true, deviceName, "", "", "");
+            try
+            {
+                CommonResult funcResult = null;
+                DriveType driveType;
+
+
+                if (IsDeviceNameUsed (deviceName, out driveType))
+                {
+                    // We found an active device with the given device letter/name. 
+                    // Try to disconnect when it is a network share.
+
+                    if (driveType != DriveType.Network)
+                    {
+                        // We can only disconnect network share devices.
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_ConDeviceIsNoShare, $"The device name \"{deviceName}:\\\" is already assigned to a none network device");
+                    }
+
+                    // Disconnect active share.
+#if USE_WIN32_API
+                    funcResult = ExecuteCommand_WinApi (true, deviceName, "", "", "");
+#else
+                    funcResult = ExecuteCommand_Cli (true, deviceName, "", "", "");
+#endif
+
+                    if (funcResult.Success)
+                    {
+#warning The check after disconnecting a network share failed. The underlaying function DriveInfo.GetDrives() returns still the unconnected device name.
+                        // WORKAROUND CODE /////////////////////////////////////////////////////
+#if WORKAROUND_DISCONNECTED_DETECTION
+
+                        // Time for the OS to disconnect / close the connection.
+                        Task.Delay (2000).Wait ();
+                        return CommonResult.MakeSuccess (null, $"Connected share \"{deviceName}:\\\" was disconnected (unconfirmed)");
+
+                        // ORIGINAL CODE /////////////////////////////////////////////////////
+#else
+
+                        // Try to check the disconnection up to 5sec.
+                        for (int recheckLoopCnt = 0; recheckLoopCnt < 10; recheckLoopCnt++)
+                        {
+                            // Time for the OS to disconnect / close the connection.
+                            Task.Delay (500).Wait ();
+
+                            // Make a new check...
+                            if (IsDeviceNameUsed (deviceName) == false)
+                            {
+                                return CommonResult.MakeSuccess (null, $"Connected share \"{deviceName}:\\\" was disconnected");
+                            }
+                        }
+
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_ConDeviceStillPresent, $"The device name \"{deviceName}:\\\" is after net use disconnect command still present");
+
+#endif
+                        // END WORKAROUND /////////////////////////////////////////////////////
+                    }
+                    else
+                    {
+                        return funcResult;
+                    }
+                }
+                else
+                {
+                    // We found no active device with the given device letter/name. 
+
+                    return CommonResult.MakeSuccess (null, $"No connected share with name \"{deviceName}:\\\" was found");
+                }
+            }
+            catch (Exception ex)
+            {
+                return CommonResult.MakeExeption (ex.Message);
+            }
         }
 
 
 
         /// <summary>
-        /// Execute the Net Use command.
+        /// This function tries to disconnect all network shares.
+        /// </summary>
+        /// <returns></returns>
+        static public CommonResult DisconnectAllNetShare ()
+        {
+            try
+            {
+#if USE_WIN32_API
+                CommonResult funcResult;
+
+                DriveInfo[] allDrives = DriveInfo.GetDrives ();
+                var deviceQuerry = allDrives.Where (d => d.IsReady && d.DriveType == DriveType.Network);
+
+
+                foreach (var drive in deviceQuerry)
+                {
+                    funcResult = ExecuteCommand_WinApi (true, drive.Name[0], "", "", "");
+
+                    if (funcResult.Success == false)
+                    {
+                        return funcResult;
+                    }
+                }
+
+                return CommonResult.MakeSuccess (null);
+#else
+                // Disconnect all active shares.
+                return ExecuteCommand_Cli (true, ' ', "", "", "")
+#endif
+            }
+            catch (Exception ex)
+            {
+                return CommonResult.MakeExeption (ex.Message);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Check if the given device name is already assigned by the OS to a resource.
+        /// </summary>
+        /// <param name="deviceName">Device name like 'z'</param>
+        /// <returns>True, if the given device name is already used</returns>
+        static public bool IsDeviceNameUsed (char deviceName)
+        {
+            DriveInfo[] allDrives = DriveInfo.GetDrives ();
+            DriveInfo deviceQuerry = allDrives.FirstOrDefault (d => d.Name[0] == deviceName && d.IsReady);
+
+
+            return (deviceQuerry != null) ? true : false;
+        }
+
+
+
+        /// <summary>
+        /// Check if the given device name is already assigned by the OS to a resource.
+        /// </summary>
+        /// <param name="deviceName">Device name like 'z'</param>
+        /// <param name="driveType">Device type of the assigned device name</param>
+        /// <returns>True, if the given device name is already used</returns>
+        static public bool IsDeviceNameUsed (char deviceName, out DriveType driveType)
+        {
+            DriveInfo[] allDrives = DriveInfo.GetDrives ();
+            DriveInfo deviceQuerry = allDrives.FirstOrDefault (d => d.Name[0] == deviceName && d.IsReady);
+
+
+            driveType = DriveType.Unknown;
+
+            if (deviceQuerry != null)
+            {
+                driveType = deviceQuerry.DriveType;
+                return true;
+            }
+
+            return false;
+        }
+
+
+
+        #region Function based on the NET USE command line.
+
+
+
+        /// <summary>
+        /// Execute the Net Use command to connect / disconnect a network share.
+        /// The function use the command line tool NET USE.
+        /// The function also allows to disconnect all connected shares. To do this, param deviceName must be set to ' ' and param disconnectOnly must be also set.
         /// </summary>
         /// <param name="disconnectOnly"></param>
         /// <param name="deviceName"></param>
@@ -75,7 +286,7 @@ namespace NetUse.Core
         /// <param name="userName"></param>
         /// <param name="userPass"></param>
         /// <returns></returns>
-        static private CommonResult ExecuteNetCommand (bool disconnectOnly, char deviceName, string shareName, string userName, string userPass)
+        static private CommonResult ExecuteCommand_Cli (bool disconnectOnly, char deviceName, string shareName, string userName, string userPass)
         {
             Process prc = new Process ();
             string errorStreamText = "";
@@ -97,7 +308,7 @@ namespace NetUse.Core
                     }
                     else
                     {
-                        argString = $"use * /delete";
+                        argString = $"use * /delete /yes";
                     }
                 }
 
@@ -140,11 +351,11 @@ namespace NetUse.Core
 
                     if (disconnectOnly)
                     {
-                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse, $"An error occurred while disconnect device \"{deviceName}:\\\". Original error message: \"{msgString}\"", prc.ExitCode);
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_Cli, $"An error occurred while disconnect device name\"{deviceName}:\\\". Original error message: \"{msgString}\"", prc.ExitCode);
                     }
                     else
                     {
-                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse, $"An error occurred while connecting to network sharing \"{shareName}\". Original error message: \"{msgString}\"", prc.ExitCode);
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_Cli, $"An error occurred while connecting to network sharing \"{shareName}\". Original error message: \"{msgString}\"", prc.ExitCode);
                     }
                 }
             }
@@ -156,99 +367,151 @@ namespace NetUse.Core
 
 
 
+        #endregion
+
+
+
+        #region Function based o Win32 API - mpr.dll (WNet)
+
+
+
+        //[DllImport ("mpr.dll", CharSet = CharSet.Auto)]
+        [DllImport ("mpr.dll")]
+        private static extern int WNetAddConnection2 (NetResource netResource, string password, string username, int flags);
+
+
+
+        //[DllImport ("mpr.dll", CharSet = CharSet.Auto)]
+        [DllImport ("mpr.dll")]
+        private static extern int WNetCancelConnection2 (string name, int flags, bool force);
+
+
+
+        [StructLayout (LayoutKind.Sequential)]
+        private class NetResource
+        {
+            public ResourceScope Scope;
+            public ResourceType ResourceType;
+            public ResourceDisplayType DisplayType;
+            public int Usage;
+            public string LocalName;
+            public string RemoteName;
+            public string Comment;
+            public string Provider;
+        }
+
+
+
+        private enum ResourceScope : int
+        {
+            Connected = 1,
+            GlobalNetwork,
+            Remembered,
+            Recent,
+            Context
+        };
+
+
+
+        private enum ResourceType : int
+        {
+            Any = 0,
+            Disk = 1,
+            Print = 2,
+            Reserved = 8,
+        }
+
+
+
+        private enum ResourceDisplayType : int
+        {
+            Generic = 0x0,
+            Domain = 0x01,
+            Server = 0x02,
+            Share = 0x03,
+            File = 0x04,
+            Group = 0x05,
+            Network = 0x06,
+            Root = 0x07,
+            Shareadmin = 0x08,
+            Directory = 0x09,
+            Tree = 0x0a,
+            Ndscontainer = 0x0b
+        }
+
+
+
         /// <summary>
-        /// This function tries to disconnect a network share.
-        /// A check about the current connection state is performed.
+        /// Execute the Net Use command to connect / disconnect a network share.
+        /// The function use the Win32 API (WNet).
+        /// Sources:
+        /// https://learn.microsoft.com/de-de/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection2a
         /// </summary>
-        /// <param name="deviceName">Device name (in upper char)</param>
+        /// <param name="disconnectOnly"></param>
+        /// <param name="deviceName"></param>
+        /// <param name="shareName"></param>
+        /// <param name="userName"></param>
+        /// <param name="userPass"></param>
         /// <returns></returns>
-        static public CommonResult DisconnectNetShare (char deviceName)
+        static private CommonResult ExecuteCommand_WinApi (bool disconnectOnly, char deviceName, string shareName, string userName, string userPass)
         {
             try
             {
-                DriveInfo[] allDrives = DriveInfo.GetDrives ();
-                DriveInfo deviceQuerry = allDrives.FirstOrDefault (d => d.Name[0] == deviceName && d.IsReady);
-                CommonResult funcResult = null;
-
-
-                if (deviceQuerry != null)
+                if (disconnectOnly)
                 {
-                    // We found an active device with the given device letter/name. 
-                    // Try to disconnect when it is a network share.
+                    var result = WNetCancelConnection2 ($"{deviceName}:", 0, true);
 
-                    if (deviceQuerry.DriveType != DriveType.Network)
+
+                    if (result == 0)
                     {
-                        // We can only disconnect network share devices.
-                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_ConDeviceIsNoShare, $"The device name \"{deviceName}:\\\" is already assigned to a none network device");
-                    }
-
-                    // Disconnect active share.
-                    funcResult = ExecuteDisconnectNetCommand (deviceName);
-
-                    if (funcResult.Success)
-                    {
-                        // /////////////////////////////////////////////////////
-#warning @@@@@
-                        //#warning The check don't works. Function DriveInfo.GetDrives makes trouble!
-                        // Time for the OS to disconnect / close the connection.
-                        Task.Delay (2000).Wait ();
-                        return CommonResult.MakeSuccess (null, $"Connected share \"{deviceName}:\\\" was disconnected (unconfirmed)");
-
-                        //// Try to check the disconnection up to 5sec.
-                        //for (int recheckLoopCnt = 0; recheckLoopCnt < 5; recheckLoopCnt++)
-                        //{
-                        //    // Time for the OS to disconnect / close the connection.
-                        //    Task.Delay (1500).Wait ();
-
-                        //    // Make a second check...
-                        //    allDrives = DriveInfo.GetDrives ();
-                        //    deviceQuerry = allDrives.FirstOrDefault (d => d.Name[0] == deviceName && d.IsReady);
-
-                        //    if (deviceQuerry != null)
-                        //    {
-                        //        return CommonResult.MakeSuccess (null, $"Connected share \"{deviceName}:\\\" was disconnected");
-                        //    }
-                        //}
-
-                        // /////////////////////////////////////////////////////
-
-                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_ConDeviceStillPresent, $"The device name \"{deviceName}:\\\" is after net use disconnect command still present");
+                        return CommonResult.MakeSuccess ();
                     }
                     else
                     {
-                        return funcResult;
+                        string errorMessage = new Win32Exception (Marshal.GetLastWin32Error ()).Message;
+
+
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_ShellApi, $"An error occurred while disconnect device name\"{deviceName}:\\\". Error code: {result} {errorMessage}", result);
                     }
                 }
                 else
                 {
-                    // We found no active device with the given device letter/name. 
+                    NetResource netResource = new NetResource
+                    {
+                        Scope = ResourceScope.GlobalNetwork,
+                        ResourceType = ResourceType.Disk,
+                        DisplayType = ResourceDisplayType.Share,
+                        RemoteName = shareName,
+                        LocalName = $"{deviceName}:"
+                    };
 
-                    return CommonResult.MakeSuccess (null, $"No connected share with name \"{deviceName}:\\\" was found");
+                    int result = WNetAddConnection2 (
+                        netResource,
+                        userPass,
+                        userName,
+                        0);
+
+                    if (result == 0)
+                    {
+                        return CommonResult.MakeSuccess ();
+                    }
+                    else
+                    {
+                        string errorMessage = new Win32Exception (Marshal.GetLastWin32Error ()).Message;
+
+
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_ShellApi, $"An error occurred while connecting to network sharing \"{shareName}\". Error code: {result} {errorMessage}", result);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                return CommonResult.MakeExeption (ex.Message);
+                return CommonResult.MakeExeption ($"A critical error occurred while connecting to network sharing. Original error message: \"{ex.Message}\"");
             }
         }
 
 
 
-        /// <summary>
-        /// This function tries to disconnect all network shares.
-        /// </summary>
-        /// <returns></returns>
-        static public CommonResult DisconnectAllNetShare ()
-        {
-            try
-            {
-                // Disconnect all active shares.
-                return ExecuteDisconnectNetCommand (' ');
-            }
-            catch (Exception ex)
-            {
-                return CommonResult.MakeExeption (ex.Message);
-            }
-        }
+        #endregion
     }
 }
