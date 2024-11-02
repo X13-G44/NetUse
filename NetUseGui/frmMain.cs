@@ -431,7 +431,7 @@ namespace NetUseGui
                     return;
                 }
 
-                if (tbShareName.Text.EndsWith("\\"))
+                if (tbShareName.Text.EndsWith ("\\"))
                 {
                     // Share name ends with `\': "\\x\y\"
                     MessageBox.Show ("The entered network share name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -539,7 +539,11 @@ namespace NetUseGui
 
 
             funcResult = CoreFunc.DisconnectAllNetShare ();
-            if (funcResult.Success != true)
+            if (funcResult.Success)
+            {
+                MessageBox.Show ("The Net Use command was executed without problems.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
             {
                 MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{funcResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
