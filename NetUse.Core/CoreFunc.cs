@@ -468,7 +468,8 @@ namespace NetUse.Core
                     }
                     else
                     {
-                        string errorMessage = new Win32Exception (Marshal.GetLastWin32Error ()).Message;
+                        //string errorMessage = new Win32Exception (Marshal.GetLastWin32Error ()).Message;
+                        string errorMessage = new Win32Exception (result).Message;
 
 
                         return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_ShellApi, $"An error occurred while disconnect device name\"{deviceName}:\\\". Error code: {result} {errorMessage}", result);
@@ -497,7 +498,8 @@ namespace NetUse.Core
                     }
                     else
                     {
-                        string errorMessage = new Win32Exception (Marshal.GetLastWin32Error ()).Message;
+                        //string errorMessage = new Win32Exception (Marshal.GetLastWin32Error ()).Message;
+                        string errorMessage = new Win32Exception (result).Message;
 
 
                         return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_ShellApi, $"An error occurred while connecting to network sharing \"{shareName}\". Error code: {result} {errorMessage}", result);
