@@ -51,7 +51,7 @@ namespace NetUseGui
 {
     public partial class frmMain : Form
     {
-        public const string MainWindowTitelBase = "Net Use";
+        public const string MainWindowTitleBase = "Net Use";
         private string MessageBoxTitle = String.Empty;
 
         private bool UpdatingGuiActive = false;
@@ -70,8 +70,8 @@ namespace NetUseGui
             InitializeComponent ();
 
 
-            this.Text = MainWindowTitelBase;
-            this.MessageBoxTitle = MainWindowTitelBase;
+            this.Text = MainWindowTitleBase;
+            this.MessageBoxTitle = MainWindowTitleBase;
 
             this.cbDeviceLetter.Items.Clear ();
             this.cbDeviceLetter.Items.AddRange (MakeDeviceNameList ());
@@ -91,7 +91,7 @@ namespace NetUseGui
 
             this.CurrentNetConfigurationFile = null;
             this.CurrentNetConfigurationFileChanged = false;
-            this.Text = MainWindowTitelBase;
+            this.Text = MainWindowTitleBase;
 
             InitMainPanelAsConnectToShare (false, true);
             ShowMainPanel (true);
@@ -418,7 +418,6 @@ namespace NetUseGui
 
         private void btnMenStrip_RunCmd_Click (object sender, EventArgs e)
         {
-            //CommonResult commonResult;
             NetConfigData netConfigData = BuildNetConfigData ();
 
 
@@ -428,6 +427,13 @@ namespace NetUseGui
                 if (tbShareName.Text.Length < 5)
                 {
                     // Minimum 5 chars are expected for share name: "\\x\y"
+                    MessageBox.Show ("The entered network share name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+
+                if (tbShareName.Text.EndsWith("\\"))
+                {
+                    // Share name ends with `\': "\\x\y\"
                     MessageBox.Show ("The entered network share name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
@@ -455,17 +461,6 @@ namespace NetUseGui
             }
 
             RunCommand (netConfigData);
-
-            //commonResult = RunCommand (netConfigData);
-            //  
-            //if (commonResult.Success)
-            //{
-            //    MessageBox.Show ("The Net Use command was executed without problems.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //else
-            //{
-            //    MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{commonResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
         }
 
 
@@ -540,21 +535,14 @@ namespace NetUseGui
 
         private void btnMenStrip_DisconnectAllShares_Click (object sender, EventArgs e)
         {
-            // Note: Command NET USE request sometimes an acknowledge from the user by pressing a key.
-            //       We can use the input stream to send this acknowledge
-            //       - or -
-            //       we use in a next version from this program a Shell API command (instead of NEt USE) to mange the network shares.
-            //       Temporary, we disable this feature.
+            CommonResult funcResult;
 
 
-            //CommonResult funcResult;
-
-
-            //funcResult = CoreFunc.DisconnectAllNetShare ();
-            //if (funcResult.Success != true)
-            //{
-            //    MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{funcResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            funcResult = CoreFunc.DisconnectAllNetShare ();
+            if (funcResult.Success != true)
+            {
+                MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{funcResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -571,14 +559,14 @@ namespace NetUseGui
         {
             if (this.CurrentNetConfigurationFile == null)
             {
-                this.Text = $"{MainWindowTitelBase} {(this.CurrentNetConfigurationFileChanged ? "*" : "")}";
+                this.Text = $"{MainWindowTitleBase} {(this.CurrentNetConfigurationFileChanged ? "*" : "")}";
             }
             else
             {
                 string configFilename = Path.GetFileNameWithoutExtension (this.CurrentNetConfigurationFile.CurrentFile);
 
 
-                this.Text = $"{MainWindowTitelBase} [{configFilename}] {(this.CurrentNetConfigurationFileChanged ? "*" : "")}";
+                this.Text = $"{MainWindowTitleBase} [{configFilename}] {(this.CurrentNetConfigurationFileChanged ? "*" : "")}";
             }
         }
 
@@ -1148,7 +1136,6 @@ namespace NetUseGui
         /// <returns></returns>
         private async void RunCommand (NetConfigData netConfigurationData)
         {
-
             btnMenStrip_RunCmd.Enabled = false;
             btnToolMen_RunCmd.Enabled = false;
 
@@ -1183,33 +1170,16 @@ namespace NetUseGui
         {
             return Task<CommonResult>.Run (() =>
             {
-                CommonResult funcResult = null;
-
-
                 try
                 {
-
                     if (netConfigurationData.OnlyDisconnect)
                     {
                         return CoreFunc.DisconnectNetShare (netConfigurationData.DeviceName);
                     }
                     else
                     {
-                        if (netConfigurationData.DisconnectFirst)
-                        {
-                            funcResult = CoreFunc.DisconnectNetShare (netConfigurationData.DeviceName);
-                        }
-
-                        if (funcResult == null || funcResult.Success)
-                        {
-                            return CoreFunc.ExecuteConnectNetCommand (netConfigurationData.DeviceName, netConfigurationData.ShareName, netConfigurationData.UserName, netConfigurationData.UserPass);
-                        }
-                        else
-                        {
-                            return funcResult;
-                        }
+                        return CoreFunc.ConnectNetShare (netConfigurationData.DisconnectFirst, netConfigurationData.DeviceName, netConfigurationData.ShareName, netConfigurationData.UserName, netConfigurationData.UserPass);
                     }
-
                 }
                 catch (Exception ex)
                 {

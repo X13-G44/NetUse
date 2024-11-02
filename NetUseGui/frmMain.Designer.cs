@@ -263,7 +263,6 @@
             // 
             // btnMenStrip_DisconnectAllShares
             // 
-            this.btnMenStrip_DisconnectAllShares.Enabled = false;
             this.btnMenStrip_DisconnectAllShares.Name = "btnMenStrip_DisconnectAllShares";
             this.btnMenStrip_DisconnectAllShares.Size = new System.Drawing.Size(297, 22);
             this.btnMenStrip_DisconnectAllShares.Text = "Disconnect all NetworkShares";

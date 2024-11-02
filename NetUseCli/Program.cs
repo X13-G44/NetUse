@@ -73,15 +73,7 @@ namespace NetUse
                     }
                     else
                     {
-                        if (netConfigData.DisconnectFirst)
-                        {
-                            funcResult = CoreFunc.DisconnectNetShare (netConfigData.DeviceName);
-                        }
-
-                        if (funcResult == null || funcResult.Success)
-                        {
-                            funcResult = CoreFunc.ExecuteConnectNetCommand (netConfigData.DeviceName, netConfigData.ShareName, netConfigData.UserName, netConfigData.UserPass);
-                        }
+                        CoreFunc.ConnectNetShare (netConfigData.DisconnectFirst, netConfigData.DeviceName, netConfigData.ShareName, netConfigData.UserName, netConfigData.UserPass);
                     }
                 }
 

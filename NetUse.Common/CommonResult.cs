@@ -67,12 +67,6 @@ namespace NetUse.Common
 
             #endregion
 
-            #region CoreFunc::ExecuteNetCommand
-
-            E_NetUse = -10,
-
-            #endregion
-
             #region NetConfigFile::LoadFile
 
             E_FileNotExists = -15,
@@ -91,7 +85,20 @@ namespace NetUse.Common
 
             #endregion
 
-            #region Program::DisconnectDevice 
+            #region CoreFunc::ExecuteNetCommand
+
+            E_NetUse_Cli = -10,
+            E_NetUse_ShellApi = -11,
+
+            #endregion
+
+            #region CoreFunc::ConnectNetShare 
+
+            E_NotAllowedToDisconnect = -35,
+
+            #endregion
+
+            #region CoreFunc::DisconnectNetShare 
 
             E_ConDeviceIsNoShare = -35,
             E_ConDeviceStillPresent = -36,
@@ -103,7 +110,6 @@ namespace NetUse.Common
             E_UnauthorizedAccessException = -40,
 
             #endregion
-
         }
 
 
