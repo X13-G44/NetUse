@@ -80,7 +80,7 @@ namespace NetUse.Core
 
                     if (allowDisconnect == false)
                     {
-                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NotAllowedToDisconnect, $"Device name \"{deviceName}:\\\" is already assigned");
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NotAllowedToDisconnect, $"The drive letter \"{deviceName}:\\\" is already mapped to an other network folder.");
                     }
                     else
                     {
@@ -130,7 +130,7 @@ namespace NetUse.Core
                     if (driveType != DriveType.Network)
                     {
                         // We can only disconnect network share devices.
-                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_ConDeviceIsNoShare, $"The device name \"{deviceName}:\\\" is already assigned to a none network device");
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_ConDeviceIsNoShare, $"The drive letter \"{deviceName}:\\\" is already mapped to a none network folder and can not be disconnected.");
                     }
 
                     // Disconnect active share.
@@ -162,11 +162,11 @@ namespace NetUse.Core
                             // Make a new check...
                             if (IsDeviceNameUsed (deviceName) == false)
                             {
-                                return CommonResult.MakeSuccess (null, $"Connected share \"{deviceName}:\\\" was disconnected");
+                                return CommonResult.MakeSuccess (null, $"Drive letter \"{deviceName}:\\\" was disconnected.");
                             }
                         }
 
-                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_ConDeviceStillPresent, $"The device name \"{deviceName}:\\\" is after net use disconnect command still present");
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_ConDeviceStillPresent, $"The drive letter \"{deviceName}:\\\" is still mapped to the network folder after disconnection.");
 
 #endif
                         // END WORKAROUND /////////////////////////////////////////////////////
@@ -180,7 +180,7 @@ namespace NetUse.Core
                 {
                     // We found no active device with the given device letter/name. 
 
-                    return CommonResult.MakeSuccess (null, $"No connected share with name \"{deviceName}:\\\" was found");
+                    return CommonResult.MakeSuccess (null, $"No mapped device letter \"{deviceName}:\\\" was found.");
                 }
             }
             catch (Exception ex)
@@ -351,17 +351,17 @@ namespace NetUse.Core
 
                     if (disconnectOnly)
                     {
-                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_Cli, $"An error occurred while disconnect device name\"{deviceName}:\\\". Original error message: \"{msgString}\"", prc.ExitCode);
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_Cli, $"An error occurred while disconnect drive letter \"{deviceName}:\\\".\nOriginal error message: \"{msgString}\"", prc.ExitCode);
                     }
                     else
                     {
-                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_Cli, $"An error occurred while connecting to network sharing \"{shareName}\". Original error message: \"{msgString}\"", prc.ExitCode);
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_Cli, $"An error occurred while mapping device letter \"{deviceName}:\\\" to network folder \"{shareName}\".\nOriginal error message: \"{msgString}\"", prc.ExitCode);
                     }
                 }
             }
             catch (Exception ex)
             {
-                return CommonResult.MakeExeption ($"A critical error occurred while connecting to network sharing. Original error message: \"{ex.Message}\"");
+                return CommonResult.MakeExeption ($"A critical error occurred while mapping a drive latter to a network folder.\nOriginal error message: \"{ex.Message}\"");
             }
         }
 
@@ -472,7 +472,7 @@ namespace NetUse.Core
                         string errorMessage = new Win32Exception (result).Message;
 
 
-                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_ShellApi, $"An error occurred while disconnect device name\"{deviceName}:\\\". Error code: {result} {errorMessage}", result);
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_ShellApi, $"An error occurred while disconnect drive letter \"{deviceName}:\\\".\nError code: {result} {errorMessage}", result);
                     }
                 }
                 else
@@ -502,13 +502,13 @@ namespace NetUse.Core
                         string errorMessage = new Win32Exception (result).Message;
 
 
-                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_ShellApi, $"An error occurred while connecting to network sharing \"{shareName}\". Error code: {result} {errorMessage}", result);
+                        return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetUse_ShellApi, $"An error occurred while mapping device letter \"{deviceName}:\\\" to network folder \"{shareName}\".\nError code: {result} {errorMessage}", result);
                     }
                 }
             }
             catch (Exception ex)
             {
-                return CommonResult.MakeExeption ($"A critical error occurred while connecting to network sharing. Original error message: \"{ex.Message}\"");
+                return CommonResult.MakeExeption ($"A critical error occurred while mapping a drive latter to a network folder.\nOriginal error message: \"{ex.Message}\"");
             }
         }
 

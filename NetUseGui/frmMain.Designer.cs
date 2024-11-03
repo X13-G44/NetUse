@@ -97,7 +97,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 506);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 559);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(377, 22);
             this.statusStrip1.TabIndex = 0;
@@ -211,8 +211,8 @@
             // 
             this.btnMenStrip_RegFileExt.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_RegFileExt.Image")));
             this.btnMenStrip_RegFileExt.Name = "btnMenStrip_RegFileExt";
-            this.btnMenStrip_RegFileExt.Size = new System.Drawing.Size(297, 22);
-            this.btnMenStrip_RegFileExt.Text = "Register File-Extension";
+            this.btnMenStrip_RegFileExt.Size = new System.Drawing.Size(293, 22);
+            this.btnMenStrip_RegFileExt.Text = "Register file extension";
             this.btnMenStrip_RegFileExt.Click += new System.EventHandler(this.btnMenStrip_RegFileExt_Click);
             // 
             // toolStripMenuItem2
@@ -226,8 +226,8 @@
             this.btnMenStrip_RunCmd.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_RunCmd.Image")));
             this.btnMenStrip_RunCmd.Name = "btnMenStrip_RunCmd";
             this.btnMenStrip_RunCmd.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
-            this.btnMenStrip_RunCmd.Size = new System.Drawing.Size(297, 22);
-            this.btnMenStrip_RunCmd.Text = "Run Command";
+            this.btnMenStrip_RunCmd.Size = new System.Drawing.Size(293, 22);
+            this.btnMenStrip_RunCmd.Text = "Run";
             this.btnMenStrip_RunCmd.Click += new System.EventHandler(this.btnMenStrip_RunCmd_Click);
             // 
             // toolStripMenuItem4
@@ -239,16 +239,16 @@
             // 
             this.btnMenStrip_CopyFilenameToClipboard.Enabled = false;
             this.btnMenStrip_CopyFilenameToClipboard.Name = "btnMenStrip_CopyFilenameToClipboard";
-            this.btnMenStrip_CopyFilenameToClipboard.Size = new System.Drawing.Size(297, 22);
-            this.btnMenStrip_CopyFilenameToClipboard.Text = "Copy Configuration filename to Clipboard";
+            this.btnMenStrip_CopyFilenameToClipboard.Size = new System.Drawing.Size(293, 22);
+            this.btnMenStrip_CopyFilenameToClipboard.Text = "Copy configuration filename to clipboard";
             this.btnMenStrip_CopyFilenameToClipboard.Click += new System.EventHandler(this.btnMenStrip_CopyFilenameToClipboard_Click);
             // 
             // btnMenStrip_CopyFilePathToClipboard
             // 
             this.btnMenStrip_CopyFilePathToClipboard.Enabled = false;
             this.btnMenStrip_CopyFilePathToClipboard.Name = "btnMenStrip_CopyFilePathToClipboard";
-            this.btnMenStrip_CopyFilePathToClipboard.Size = new System.Drawing.Size(297, 22);
-            this.btnMenStrip_CopyFilePathToClipboard.Text = "Copy Configuration path to Clipboard";
+            this.btnMenStrip_CopyFilePathToClipboard.Size = new System.Drawing.Size(293, 22);
+            this.btnMenStrip_CopyFilePathToClipboard.Text = "Copy configuration path to clipboard";
             this.btnMenStrip_CopyFilePathToClipboard.Click += new System.EventHandler(this.btnMenStrip_CopyFilePathToClipboard_Click);
             // 
             // toolStripMenuItem3
@@ -259,8 +259,8 @@
             // btnMenStrip_OpenConfigFolder
             // 
             this.btnMenStrip_OpenConfigFolder.Name = "btnMenStrip_OpenConfigFolder";
-            this.btnMenStrip_OpenConfigFolder.Size = new System.Drawing.Size(297, 22);
-            this.btnMenStrip_OpenConfigFolder.Text = "Open Configuration folder";
+            this.btnMenStrip_OpenConfigFolder.Size = new System.Drawing.Size(293, 22);
+            this.btnMenStrip_OpenConfigFolder.Text = "Open configuration folder";
             this.btnMenStrip_OpenConfigFolder.Click += new System.EventHandler(this.btnMenStrip_OpenConfigFolder_Click);
             // 
             // toolStripMenuItem5
@@ -273,8 +273,8 @@
             this.btnMenStrip_DisconnectAllShares.Name = "btnMenStrip_DisconnectAllShares";
             this.btnMenStrip_DisconnectAllShares.ShortcutKeyDisplayString = "";
             this.btnMenStrip_DisconnectAllShares.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
-            this.btnMenStrip_DisconnectAllShares.Size = new System.Drawing.Size(297, 22);
-            this.btnMenStrip_DisconnectAllShares.Text = "Disconnect all Network Shares";
+            this.btnMenStrip_DisconnectAllShares.Size = new System.Drawing.Size(293, 22);
+            this.btnMenStrip_DisconnectAllShares.Text = "Disconnect all network drives";
             this.btnMenStrip_DisconnectAllShares.Click += new System.EventHandler(this.btnMenStrip_DisconnectAllShares_Click);
             // 
             // helpToolStripMenuItem
@@ -311,7 +311,7 @@
             this.panelStart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelStart.Location = new System.Drawing.Point(0, 24);
             this.panelStart.Name = "panelStart";
-            this.panelStart.Size = new System.Drawing.Size(377, 482);
+            this.panelStart.Size = new System.Drawing.Size(377, 535);
             this.panelStart.TabIndex = 2;
             // 
             // btnStartPanel_Open
@@ -348,7 +348,7 @@
             // 
             this.lbDragAndDropInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lbDragAndDropInfo.AutoSize = true;
-            this.lbDragAndDropInfo.Location = new System.Drawing.Point(120, 467);
+            this.lbDragAndDropInfo.Location = new System.Drawing.Point(120, 520);
             this.lbDragAndDropInfo.Name = "lbDragAndDropInfo";
             this.lbDragAndDropInfo.Size = new System.Drawing.Size(135, 13);
             this.lbDragAndDropInfo.TabIndex = 4;
@@ -422,7 +422,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 335);
+            this.label6.Location = new System.Drawing.Point(12, 345);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 13);
             this.label6.TabIndex = 1;
@@ -440,15 +440,15 @@
             this.gb2.Controls.Add(this.label1);
             this.gb2.Location = new System.Drawing.Point(12, 123);
             this.gb2.Name = "gb2";
-            this.gb2.Size = new System.Drawing.Size(350, 102);
+            this.gb2.Size = new System.Drawing.Size(350, 108);
             this.gb2.TabIndex = 1;
             this.gb2.TabStop = false;
-            this.gb2.Text = "Net Share";
+            this.gb2.Text = "Parameter";
             // 
             // cbDisconnectFirst
             // 
             this.cbDisconnectFirst.AutoSize = true;
-            this.cbDisconnectFirst.Location = new System.Drawing.Point(111, 75);
+            this.cbDisconnectFirst.Location = new System.Drawing.Point(133, 74);
             this.cbDisconnectFirst.Name = "cbDisconnectFirst";
             this.cbDisconnectFirst.Size = new System.Drawing.Size(15, 14);
             this.cbDisconnectFirst.TabIndex = 2;
@@ -458,20 +458,20 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 75);
+            this.label5.Location = new System.Drawing.Point(18, 75);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(83, 13);
+            this.label5.Size = new System.Drawing.Size(111, 13);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Disconnect first:";
+            this.label5.Text = "Force disconnect first:";
             // 
             // tbShareName
             // 
             this.tbShareName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tbShareName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.tbShareName.Location = new System.Drawing.Point(111, 47);
+            this.tbShareName.Location = new System.Drawing.Point(133, 47);
             this.tbShareName.MaxLength = 128;
             this.tbShareName.Name = "tbShareName";
-            this.tbShareName.Size = new System.Drawing.Size(212, 20);
+            this.tbShareName.Size = new System.Drawing.Size(190, 20);
             this.tbShareName.TabIndex = 1;
             this.tbShareName.Text = "\\\\server\\share\\";
             this.tbShareName.TextChanged += new System.EventHandler(this.onGuiElementChange);
@@ -485,7 +485,7 @@
             "C",
             "D",
             "E"});
-            this.cbDeviceLetter.Location = new System.Drawing.Point(111, 17);
+            this.cbDeviceLetter.Location = new System.Drawing.Point(133, 22);
             this.cbDeviceLetter.Name = "cbDeviceLetter";
             this.cbDeviceLetter.Size = new System.Drawing.Size(60, 21);
             this.cbDeviceLetter.TabIndex = 0;
@@ -498,18 +498,18 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(16, 50);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 13);
+            this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Sharename:";
+            this.label2.Text = "Remote folder:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(16, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Device Letter:";
+            this.label1.Text = "Local drive letter:";
             // 
             // gb3
             // 
@@ -519,7 +519,7 @@
             this.gb3.Controls.Add(this.tbUserName);
             this.gb3.Controls.Add(this.label13);
             this.gb3.Controls.Add(this.label14);
-            this.gb3.Location = new System.Drawing.Point(12, 231);
+            this.gb3.Location = new System.Drawing.Point(12, 237);
             this.gb3.Name = "gb3";
             this.gb3.Size = new System.Drawing.Size(350, 85);
             this.gb3.TabIndex = 2;
@@ -574,10 +574,10 @@
             this.tbComment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbComment.Location = new System.Drawing.Point(12, 357);
+            this.tbComment.Location = new System.Drawing.Point(12, 372);
             this.tbComment.Multiline = true;
             this.tbComment.Name = "tbComment";
-            this.tbComment.Size = new System.Drawing.Size(350, 107);
+            this.tbComment.Size = new System.Drawing.Size(350, 145);
             this.tbComment.TabIndex = 3;
             this.tbComment.TextChanged += new System.EventHandler(this.onGuiElementChange);
             // 
@@ -599,10 +599,10 @@
             this.rbDisconnectShare.AutoSize = true;
             this.rbDisconnectShare.Location = new System.Drawing.Point(16, 50);
             this.rbDisconnectShare.Name = "rbDisconnectShare";
-            this.rbDisconnectShare.Size = new System.Drawing.Size(142, 17);
+            this.rbDisconnectShare.Size = new System.Drawing.Size(146, 17);
             this.rbDisconnectShare.TabIndex = 1;
             this.rbDisconnectShare.TabStop = true;
-            this.rbDisconnectShare.Text = "Disconnect from a Share";
+            this.rbDisconnectShare.Text = "Disconnect network drive";
             this.rbDisconnectShare.UseVisualStyleBackColor = true;
             this.rbDisconnectShare.CheckedChanged += new System.EventHandler(this.rbConnectShare_CheckedChanged);
             // 
@@ -611,10 +611,10 @@
             this.rbConnectShare.AutoSize = true;
             this.rbConnectShare.Location = new System.Drawing.Point(16, 25);
             this.rbConnectShare.Name = "rbConnectShare";
-            this.rbConnectShare.Size = new System.Drawing.Size(111, 17);
+            this.rbConnectShare.Size = new System.Drawing.Size(113, 17);
             this.rbConnectShare.TabIndex = 0;
             this.rbConnectShare.TabStop = true;
-            this.rbConnectShare.Text = "Connet to a Share";
+            this.rbConnectShare.Text = "Map network drive";
             this.rbConnectShare.UseVisualStyleBackColor = true;
             this.rbConnectShare.CheckedChanged += new System.EventHandler(this.rbConnectShare_CheckedChanged);
             // 
@@ -630,7 +630,7 @@
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 24);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(377, 482);
+            this.panelEdit.Size = new System.Drawing.Size(377, 535);
             this.panelEdit.TabIndex = 3;
             // 
             // frmMain
@@ -638,7 +638,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 528);
+            this.ClientSize = new System.Drawing.Size(377, 581);
             this.Controls.Add(this.panelEdit);
             this.Controls.Add(this.panelStart);
             this.Controls.Add(this.statusStrip1);

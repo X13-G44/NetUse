@@ -171,7 +171,7 @@ namespace NetUseGui
 
             if (CheckForInvalidChar (tbShareName.Text, false, false, true, true, InvalidShareNameChars, out usedInvalidChars))
             {
-                MessageBox.Show ($"Warning: The entered network share name contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show ($"Warning: The entered network folder contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 tbShareName.Text = String.Empty;
             }
@@ -216,7 +216,7 @@ namespace NetUseGui
 
             if (cbDeviceLetter.Text.Length != 1 || CheckForInvalidChar (cbDeviceLetter.Text, true, false, true, false, null, out usedInvalidChars))
             {
-                MessageBox.Show ($"Warning: The selected device name / device letter is invalid. Please try again with valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show ($"Warning: The selected drive letter is invalid. Please try again with valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 cbDeviceLetter.Text = "Z";
             }
@@ -427,14 +427,14 @@ namespace NetUseGui
                 if (tbShareName.Text.Length < 5)
                 {
                     // Minimum 5 chars are expected for share name: "\\x\y"
-                    MessageBox.Show ("The entered network share name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show ("The entered network folder appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
 
                 if (tbShareName.Text.EndsWith ("\\"))
                 {
                     // Share name ends with `\': "\\x\y\"
-                    MessageBox.Show ("The entered network share name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show ("The entered network folder appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
 
@@ -455,7 +455,7 @@ namespace NetUseGui
                 if (cbDeviceLetter.Text.Length != 1)
                 {
                     // Minimum 5 chars are expected for share name: "\\x\y"
-                    MessageBox.Show ("The entered network share name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show ("The entered network folder appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
             }
@@ -541,11 +541,11 @@ namespace NetUseGui
             funcResult = CoreFunc.DisconnectAllNetShare ();
             if (funcResult.Success)
             {
-                MessageBox.Show ("The Net Use command was executed without problems.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show ("All mapped network drives was disconnected.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{funcResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show ($"An error has been occurred while disconnect all mapped network drives!\n\nError message:\n{funcResult.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1123,7 +1123,7 @@ namespace NetUseGui
             }
             catch (UnauthorizedAccessException)
             {
-                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_UnauthorizedAccessException, $"Write access to the Win-Registry was denied. In order for the file extension to be registered, write access is required.\n\nPlease start the program again with administrator rights and try the file register process again");
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_UnauthorizedAccessException, $"The NetUse Configuration file extensions could not be registered (no write access to registry).\nTo register the file extension, restart the application with administrator rights and try it again.");
             }
             catch (Exception ex)
             {
@@ -1155,11 +1155,11 @@ namespace NetUseGui
 
             if (result.Success)
             {
-                MessageBox.Show ("The Net Use command was executed without problems.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show ($"The drive letter \"{cbDeviceLetter.Text.ToUpper()}://\" was mapped to \"{tbShareName.Text}\" successfully.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show ($"The Net Use command was executed with errors!\n\nError message:\n{result.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show ($"The drive letter \"{cbDeviceLetter.Text.ToUpper ()}://\" was not mapped to \"{tbShareName.Text}\"!\n\nError message:\n{result.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
