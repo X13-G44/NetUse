@@ -141,7 +141,8 @@
             // 
             this.btnMenStrip_MakeNew.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_MakeNew.Image")));
             this.btnMenStrip_MakeNew.Name = "btnMenStrip_MakeNew";
-            this.btnMenStrip_MakeNew.Size = new System.Drawing.Size(112, 22);
+            this.btnMenStrip_MakeNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.N)));
+            this.btnMenStrip_MakeNew.Size = new System.Drawing.Size(180, 22);
             this.btnMenStrip_MakeNew.Text = "New";
             this.btnMenStrip_MakeNew.Click += new System.EventHandler(this.btnMenStrip_MakeNew_Click);
             // 
@@ -149,7 +150,8 @@
             // 
             this.btnMenStrip_Open.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_Open.Image")));
             this.btnMenStrip_Open.Name = "btnMenStrip_Open";
-            this.btnMenStrip_Open.Size = new System.Drawing.Size(112, 22);
+            this.btnMenStrip_Open.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.O)));
+            this.btnMenStrip_Open.Size = new System.Drawing.Size(180, 22);
             this.btnMenStrip_Open.Text = "Open";
             this.btnMenStrip_Open.Click += new System.EventHandler(this.btnMenStrip_Open_Click);
             // 
@@ -158,7 +160,8 @@
             this.btnMenStrip_Save.Enabled = false;
             this.btnMenStrip_Save.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_Save.Image")));
             this.btnMenStrip_Save.Name = "btnMenStrip_Save";
-            this.btnMenStrip_Save.Size = new System.Drawing.Size(112, 22);
+            this.btnMenStrip_Save.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
+            this.btnMenStrip_Save.Size = new System.Drawing.Size(180, 22);
             this.btnMenStrip_Save.Text = "Save";
             this.btnMenStrip_Save.Click += new System.EventHandler(this.btnMenStrip_Save_Click);
             // 
@@ -167,20 +170,23 @@
             this.btnMenStrip_SaveAs.Enabled = false;
             this.btnMenStrip_SaveAs.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_SaveAs.Image")));
             this.btnMenStrip_SaveAs.Name = "btnMenStrip_SaveAs";
-            this.btnMenStrip_SaveAs.Size = new System.Drawing.Size(112, 22);
+            this.btnMenStrip_SaveAs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.S)));
+            this.btnMenStrip_SaveAs.Size = new System.Drawing.Size(180, 22);
             this.btnMenStrip_SaveAs.Text = "Save as";
             this.btnMenStrip_SaveAs.Click += new System.EventHandler(this.btnMenStrip_SaveAs_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(109, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // btnMenStrip_Exit
             // 
             this.btnMenStrip_Exit.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_Exit.Image")));
             this.btnMenStrip_Exit.Name = "btnMenStrip_Exit";
-            this.btnMenStrip_Exit.Size = new System.Drawing.Size(112, 22);
+            this.btnMenStrip_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.E)));
+            this.btnMenStrip_Exit.Size = new System.Drawing.Size(180, 22);
             this.btnMenStrip_Exit.Text = "Close";
             this.btnMenStrip_Exit.Click += new System.EventHandler(this.btnMenStrip_Exit_Click);
             // 
@@ -219,6 +225,7 @@
             this.btnMenStrip_RunCmd.Enabled = false;
             this.btnMenStrip_RunCmd.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_RunCmd.Image")));
             this.btnMenStrip_RunCmd.Name = "btnMenStrip_RunCmd";
+            this.btnMenStrip_RunCmd.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.btnMenStrip_RunCmd.Size = new System.Drawing.Size(297, 22);
             this.btnMenStrip_RunCmd.Text = "Run Command";
             this.btnMenStrip_RunCmd.Click += new System.EventHandler(this.btnMenStrip_RunCmd_Click);
@@ -264,8 +271,10 @@
             // btnMenStrip_DisconnectAllShares
             // 
             this.btnMenStrip_DisconnectAllShares.Name = "btnMenStrip_DisconnectAllShares";
+            this.btnMenStrip_DisconnectAllShares.ShortcutKeyDisplayString = "";
+            this.btnMenStrip_DisconnectAllShares.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
             this.btnMenStrip_DisconnectAllShares.Size = new System.Drawing.Size(297, 22);
-            this.btnMenStrip_DisconnectAllShares.Text = "Disconnect all NetworkShares";
+            this.btnMenStrip_DisconnectAllShares.Text = "Disconnect all Network Shares";
             this.btnMenStrip_DisconnectAllShares.Click += new System.EventHandler(this.btnMenStrip_DisconnectAllShares_Click);
             // 
             // helpToolStripMenuItem

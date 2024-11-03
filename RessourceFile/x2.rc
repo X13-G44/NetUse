@@ -1,0 +1,27 @@
+1 ICON "NeuUse_Main.ico"
+2 ICON "NeuUse_Doc.ico"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 1,1,1,0
+PRODUCTVERSION 1,1,1,0
+BEGIN
+	BLOCK "StringFileInfo"
+	BEGIN
+		BLOCK "040904b0"
+		BEGIN
+			VALUE "Comments", "Program to manage network shares with help of the Microsoft Windows CLI tool NET"
+			VALUE "CompanyName", ""
+			VALUE "FileDescription", "Program to manage network shares with help of the Microsoft Windows CLI tool NET"
+			VALUE "FileVersion", "V1.1.1.0"
+			VALUE "InternalName", "NetUseGui"
+			VALUE "LegalCopyright", "Copyright © 2024 Christian Harscher aka X13-G44"
+			VALUE "OriginalFilename", "NetUseGui.exe"
+			VALUE "ProductName", "Net Use"
+			VALUE "ProductVersion", "V1.1.1.0"
+		END
+	END
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 0x0409,1200
+	END
+END
