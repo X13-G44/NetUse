@@ -1123,7 +1123,7 @@ namespace NetUseGui
             }
             catch (UnauthorizedAccessException)
             {
-                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_UnauthorizedAccessException, $"Write access to the Win-Registry was denied. In order for the file extension to be registered, write access is required.\n\nPlease start the program again with administrator rights.");
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_UnauthorizedAccessException, $"Write access to the Win-Registry was denied. In order for the file extension to be registered, write access is required.\n\nPlease start the program again with administrator rights and try the file register process again");
             }
             catch (Exception ex)
             {
