@@ -60,7 +60,7 @@ namespace NetUseGui
         private NetConfigFile CurrentNetConfigurationFile = null;
 
         private char[] InvalidShareNameChars = new char[] { ' ', '/', ':', '*', '?', '"', '<', '>', '|' };
-        private char[] InvalidUserNameChars = new char[] { ' ', '"', '/', '\\', '[', ']', ':', ';', '|', '=', ',', '+', '*', '?', '<', '>' };
+        private char[] InvalidUserNameChars = new char[] { ' ', '"', '/', '\\', '[', ']', ';', '|', '=', ',', '+', '*', '?', '<', '>' };   // We allow ':' because of IPv6
         private char[] InvalidUserPasswordChars = new char[] { ' ' };
 
 
@@ -166,14 +166,13 @@ namespace NetUseGui
 
         private void tbShareName_Leave (object sender, EventArgs e)
         {
-            string usedInvalidChars = string.Empty;
+            CommonResult funcResult = CheckNetworkFolderText (tbShareName.Text);
 
-
-            if (CheckForInvalidChar (tbShareName.Text, false, false, true, true, InvalidShareNameChars, out usedInvalidChars))
+            if (funcResult.Success == false)
             {
-                MessageBox.Show ($"Warning: The entered network folder contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show (funcResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                tbShareName.Text = String.Empty;
+                tbShareName.Text = funcResult.Data?.ToString ();
             }
         }
 
@@ -181,14 +180,13 @@ namespace NetUseGui
 
         private void tbUserName_Leave (object sender, EventArgs e)
         {
-            string usedInvalidChars = string.Empty;
+            CommonResult funcResult = CheckUsernameText (tbUserName.Text);
 
-
-            if (CheckForInvalidChar (tbUserName.Text, false, false, true, true, InvalidUserNameChars, out usedInvalidChars))
+            if (funcResult.Success == false)
             {
-                MessageBox.Show ($"Warning: The entered user name contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show (funcResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                tbUserName.Text = String.Empty;
+                tbUserName.Text = funcResult.Data?.ToString ();
             }
         }
 
@@ -196,14 +194,13 @@ namespace NetUseGui
 
         private void tbUserPw_Leave (object sender, EventArgs e)
         {
-            string usedInvalidChars = string.Empty;
+            CommonResult funcResult = CheckUserpasswordText (tbUserPw.Text);
 
-
-            if (CheckForInvalidChar (tbUserPw.Text, false, false, true, true, InvalidUserPasswordChars, out usedInvalidChars))
+            if (funcResult.Success == false)
             {
-                MessageBox.Show ($"Warning: The entered password contains invalid characters. Please try again with valid characters. \n\nNot allowed characters: {usedInvalidChars}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show (funcResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                tbUserPw.Text = String.Empty;
+                tbUserPw.Text = funcResult.Data?.ToString ();
             }
         }
 
@@ -249,6 +246,16 @@ namespace NetUseGui
             CommonResult writeResult = null;
 
 
+            if (rbConnectShare.Checked && (!CheckNetworkFolderText (tbShareName.Text).Success || !CheckUsernameText (tbUserName.Text).Success || !CheckUserpasswordText (tbUserPw.Text).Success))
+            {
+                DialogResult result = MessageBox.Show ("The settings are invalid!\n\nShould the invalid settings be saved ?", this.MessageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
             if (this.CurrentNetConfigurationFile != null)
             {
                 // Write to NetCinfiguration file.
@@ -276,6 +283,16 @@ namespace NetUseGui
 
         private void btnMenStrip_SaveAs_Click (object sender, EventArgs e)
         {
+            if (rbConnectShare.Checked && (!CheckNetworkFolderText (tbShareName.Text).Success || !CheckUsernameText (tbUserName.Text).Success || !CheckUserpasswordText (tbUserPw.Text).Success))
+            {
+                DialogResult result = MessageBox.Show ("The settings are invalid!\n\nShould the invalid settings be saved ?", this.MessageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
             CommonResult writeResult = SaveNetConfigurationFile (BuildNetConfigData (), true);
 
             if (writeResult.Success)
@@ -419,43 +436,36 @@ namespace NetUseGui
         private void btnMenStrip_RunCmd_Click (object sender, EventArgs e)
         {
             NetConfigData netConfigData = BuildNetConfigData ();
+            CommonResult funcResult;
 
 
             // Make some basic checks, before executing the net use command.
             if (rbConnectShare.Checked)
             {
-                if (tbShareName.Text.Length < 5)
+                funcResult = CheckNetworkFolderText (tbShareName.Text);
+
+                if (funcResult.Success == false)
                 {
-                    // Minimum 5 chars are expected for share name: "\\x\y"
-                    MessageBox.Show ("The entered network folder appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show (funcResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
                     return;
                 }
 
-                if (tbShareName.Text.EndsWith ("\\"))
+                funcResult = CheckUsernameText (tbUserName.Text);
+
+                if (funcResult.Success == false)
                 {
-                    // Share name ends with `\': "\\x\y\"
-                    MessageBox.Show ("The entered network folder appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show (funcResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
                     return;
                 }
 
-                if (tbUserName.Text.Length == 0)
-                {
-                    MessageBox.Show ("The entered user name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    return;
-                }
+                funcResult = CheckUserpasswordText (tbUserPw.Text);
 
-                if (tbUserPw.Text.Length == 0)
+                if (funcResult.Success == false)
                 {
-                    MessageBox.Show ("The entered user name appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    return;
-                }
-            }
-            else
-            {
-                if (cbDeviceLetter.Text.Length != 1)
-                {
-                    // Minimum 5 chars are expected for share name: "\\x\y"
-                    MessageBox.Show ("The entered network folder appears to be invalid. Please enter a valid name.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show (funcResult.Message, this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
                     return;
                 }
             }
@@ -709,7 +719,19 @@ namespace NetUseGui
         {
             if (this.CurrentNetConfigurationFileChanged == true)
             {
-                DialogResult result = MessageBox.Show ("The settings have been changed but not saved yet!\n\nShould the settings be saved first ?", this.MessageBoxTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+                string message;
+
+
+                if (rbConnectShare.Checked && (!CheckNetworkFolderText (tbShareName.Text).Success || !CheckUsernameText (tbUserName.Text).Success || !CheckUserpasswordText (tbUserPw.Text).Success))
+                {
+                    message = "The (changed) settings are invalid and have not saved yet!\n\nShould the invalid settings be saved first ?";
+                }
+                else
+                {
+                    message = "The settings have been changed but not saved yet!\n\nShould the settings be saved first ?";
+                }
+
+                DialogResult result = MessageBox.Show (message, this.MessageBoxTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
 
                 switch (result)
                 {
@@ -777,6 +799,84 @@ namespace NetUseGui
 
                 this.UpdatingGuiActive = false;
             }
+        }
+
+
+
+        private CommonResult CheckNetworkFolderText (string networkFolder)
+        {
+            string usedInvalidChars = string.Empty;
+
+
+            if (networkFolder.Length < 5)
+            {
+                // Minimum 5 chars are expected for network folder: "\\x\y"
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetFolderNameToShort, "Warning: The entered network folder appears to be invalid.\n\nThe folder must be at least 5 characters long.", "");
+            }
+
+            if (networkFolder.EndsWith ("\\"))
+            {
+                // Network folder ends with `\': "\\x\y\"                               
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetFolderNameEndString, "Warning: The entered network folder appears to be invalid.\n\nThe folder must not end with \"\\\".", "");
+            }
+
+            if (networkFolder.StartsWith ("\\\\") == false)
+            {
+                // Network folder don't starts with "\\": "\\x\y\"                               
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetFolderNameStartString, "Warning: The entered network folder appears to be invalid.\n\nThe folder must starts with \"\\\\\".", "");
+            }
+
+            if (CheckForInvalidChar (networkFolder, false, false, true, true, InvalidShareNameChars, out usedInvalidChars))
+            {
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_NetFolderNameInvalidChar, $"Warning: The entered network folder contains invalid characters.\n\nNot allowed characters: {usedInvalidChars}", "");
+            }
+
+            return CommonResult.MakeSuccess (networkFolder);
+        }
+
+
+
+        private CommonResult CheckUsernameText (string username)
+        {
+            string usedInvalidChars = string.Empty;
+
+
+            if (username.Length == 0)
+            {
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_UserNameToShort, "Warning: The entered user name appears to be invalid.\\n\\nThe name must be at least 1 characters long.", "");
+            }
+
+            if (username.Length > 20)
+            {
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_UserNameToLong, "Warning: The entered user name appears to be invalid.\\n\\nThe name may be a maximum of 20 characters long.", "");
+            }
+
+            if (CheckForInvalidChar (username, false, false, true, true, InvalidUserNameChars, out usedInvalidChars))
+            {
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_UserNameInvalidChar, $"Warning: The entered user name contains invalid characters.\n\nNot allowed characters: {usedInvalidChars}", "");
+            }
+
+            return CommonResult.MakeSuccess (username);
+        }
+
+
+
+        private CommonResult CheckUserpasswordText (string userpassword)
+        {
+            string usedInvalidChars = string.Empty;
+
+
+            if (userpassword.Length == 0)
+            {
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_UserPwToShort, "Warning: The entered user password appears to be invalid.\\n\\nThe name must be at least 1 characters long.", "");
+            }
+
+            if (CheckForInvalidChar (userpassword, false, false, true, true, InvalidUserPasswordChars, out usedInvalidChars))
+            {
+                return CommonResult.MakeError (CommonResult.ErrorResultCodes.E_UserPwInvalidChar, $"Warning: The entered user password contains invalid characters.\n\nNot allowed characters: {usedInvalidChars}", "");
+            }
+
+            return CommonResult.MakeSuccess (userpassword);
         }
 
 
@@ -1155,7 +1255,7 @@ namespace NetUseGui
 
             if (result.Success)
             {
-                MessageBox.Show ($"The drive letter \"{cbDeviceLetter.Text.ToUpper()}://\" was mapped to \"{tbShareName.Text}\" successfully.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show ($"The drive letter \"{cbDeviceLetter.Text.ToUpper ()}://\" was mapped to \"{tbShareName.Text}\" successfully.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {

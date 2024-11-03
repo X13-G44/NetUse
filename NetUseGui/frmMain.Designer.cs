@@ -498,9 +498,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(16, 50);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 13);
+            this.label2.Size = new System.Drawing.Size(79, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Remote folder:";
+            this.label2.Text = "Network folder:";
             // 
             // label1
             // 

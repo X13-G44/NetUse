@@ -110,6 +110,30 @@ namespace NetUse.Common
             E_UnauthorizedAccessException = -200,
 
             #endregion
+
+            #region frmMain::CheckNetworkFolderText
+
+            E_NetFolderNameToShort = -210,
+            E_NetFolderNameEndString = -211,
+            E_NetFolderNameStartString = -212,
+            E_NetFolderNameInvalidChar = -213,
+
+            #endregion
+
+            #region frmMain::CheckUsernameText
+
+            E_UserNameToShort = -220,
+            E_UserNameToLong = -221,
+            E_UserNameInvalidChar = -222,
+
+            #endregion
+
+            #region frmMain::CheckUserpasswordText
+
+            E_UserPwToShort = -230,
+            E_UserPwInvalidChar = -231,
+
+            #endregion
         }
 
 
