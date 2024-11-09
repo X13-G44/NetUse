@@ -33,11 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>NeuUse Main.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <Win32Resource>x.res</Win32Resource>
+    <Win32Resource>
+    </Win32Resource>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -108,6 +108,9 @@
       <Project>{cf29ed7c-fc72-4342-b73d-bb7924504e32}</Project>
       <Name>NetUse.NetConfigFile</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NeuUse Main.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

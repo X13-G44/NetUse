@@ -1186,29 +1186,29 @@ namespace NetUseGui
                 String currentPath = Path.GetDirectoryName (currentAssembly.Location);
 
 
-                using (RegistryKey key1 = regRoot.CreateSubKey ("NetCfgFile"))
+                using (RegistryKey key_1 = regRoot.CreateSubKey ("NetCfgFile"))
                 {
-                    key1.SetValue ("", "Net Use Configuration File", RegistryValueKind.String);
+                    key_1.SetValue ("", "Net Use Configuration File", RegistryValueKind.String);
 
-                    using (RegistryKey key11 = key1.CreateSubKey ("DefaultIcon"))
+                    using (RegistryKey key11 = key_1.CreateSubKey ("DefaultIcon"))
                     {
-                        key11.SetValue ("", $"\"{currentAssembly.Location}\",-2", RegistryValueKind.ExpandString);
+                        key11.SetValue ("", $"\"{currentPath}\\NetUse.NetConfigFile.dll\",-1", RegistryValueKind.ExpandString);
                     }
 
-                    using (RegistryKey key12 = key1.CreateSubKey ("shell"))
+                    using (RegistryKey key_1_2 = key_1.CreateSubKey ("shell"))
                     {
                         using (RegistryKey
-                            key121 = key12.CreateSubKey ("edit"),
-                            key1211 = key121.CreateSubKey ("command"))
+                            key_1_2_1 = key_1_2.CreateSubKey ("edit"),
+                            key_1_2_1_1 = key_1_2_1.CreateSubKey ("command"))
                         {
-                            key1211.SetValue ("", $"\"{currentAssembly.Location}\" \"%1\"", RegistryValueKind.ExpandString);
+                            key_1_2_1_1.SetValue ("", $"\"{currentAssembly.Location}\" \"%1\"", RegistryValueKind.ExpandString);
                         }
 
                         using (RegistryKey
-                            key122 = key12.CreateSubKey ("open"),
-                            key1221 = key122.CreateSubKey ("command"))
+                            key_1_2_2 = key_1_2.CreateSubKey ("open"),
+                            key_1_2_2_1 = key_1_2_2.CreateSubKey ("command"))
                         {
-                            key1221.SetValue ("", $"\"{currentPath}\\netuse.exe\" \"%1\"", RegistryValueKind.ExpandString);
+                            key_1_2_2_1.SetValue ("", $"\"{currentPath}\\netuse.exe\" \"%1\"", RegistryValueKind.ExpandString);
                         }
                     }
                 }
@@ -1255,11 +1255,11 @@ namespace NetUseGui
 
             if (result.Success)
             {
-                MessageBox.Show ($"The drive letter \"{cbDeviceLetter.Text.ToUpper ()}://\" was mapped to \"{tbShareName.Text}\" successfully.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show ($"The drive letter \"{cbDeviceLetter.Text.ToUpper ()}:\\\" was mapped to \"{tbShareName.Text}\" successfully.", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show ($"The drive letter \"{cbDeviceLetter.Text.ToUpper ()}://\" was not mapped to \"{tbShareName.Text}\"!\n\nError message:\n{result.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show ($"The drive letter \"{cbDeviceLetter.Text.ToUpper ()}:\\\" was not mapped to \"{tbShareName.Text}\"!\n\nError message:\n{result.Message}", this.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

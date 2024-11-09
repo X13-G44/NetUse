@@ -142,7 +142,7 @@
             this.btnMenStrip_MakeNew.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_MakeNew.Image")));
             this.btnMenStrip_MakeNew.Name = "btnMenStrip_MakeNew";
             this.btnMenStrip_MakeNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.N)));
-            this.btnMenStrip_MakeNew.Size = new System.Drawing.Size(180, 22);
+            this.btnMenStrip_MakeNew.Size = new System.Drawing.Size(177, 22);
             this.btnMenStrip_MakeNew.Text = "New";
             this.btnMenStrip_MakeNew.Click += new System.EventHandler(this.btnMenStrip_MakeNew_Click);
             // 
@@ -151,7 +151,7 @@
             this.btnMenStrip_Open.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_Open.Image")));
             this.btnMenStrip_Open.Name = "btnMenStrip_Open";
             this.btnMenStrip_Open.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.O)));
-            this.btnMenStrip_Open.Size = new System.Drawing.Size(180, 22);
+            this.btnMenStrip_Open.Size = new System.Drawing.Size(177, 22);
             this.btnMenStrip_Open.Text = "Open";
             this.btnMenStrip_Open.Click += new System.EventHandler(this.btnMenStrip_Open_Click);
             // 
@@ -161,7 +161,7 @@
             this.btnMenStrip_Save.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_Save.Image")));
             this.btnMenStrip_Save.Name = "btnMenStrip_Save";
             this.btnMenStrip_Save.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
-            this.btnMenStrip_Save.Size = new System.Drawing.Size(180, 22);
+            this.btnMenStrip_Save.Size = new System.Drawing.Size(177, 22);
             this.btnMenStrip_Save.Text = "Save";
             this.btnMenStrip_Save.Click += new System.EventHandler(this.btnMenStrip_Save_Click);
             // 
@@ -172,21 +172,21 @@
             this.btnMenStrip_SaveAs.Name = "btnMenStrip_SaveAs";
             this.btnMenStrip_SaveAs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.S)));
-            this.btnMenStrip_SaveAs.Size = new System.Drawing.Size(180, 22);
+            this.btnMenStrip_SaveAs.Size = new System.Drawing.Size(177, 22);
             this.btnMenStrip_SaveAs.Text = "Save as";
             this.btnMenStrip_SaveAs.Click += new System.EventHandler(this.btnMenStrip_SaveAs_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(174, 6);
             // 
             // btnMenStrip_Exit
             // 
             this.btnMenStrip_Exit.Image = ((System.Drawing.Image)(resources.GetObject("btnMenStrip_Exit.Image")));
             this.btnMenStrip_Exit.Name = "btnMenStrip_Exit";
             this.btnMenStrip_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.E)));
-            this.btnMenStrip_Exit.Size = new System.Drawing.Size(180, 22);
+            this.btnMenStrip_Exit.Size = new System.Drawing.Size(177, 22);
             this.btnMenStrip_Exit.Text = "Close";
             this.btnMenStrip_Exit.Click += new System.EventHandler(this.btnMenStrip_Exit_Click);
             // 
@@ -218,7 +218,7 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(294, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(290, 6);
             // 
             // btnMenStrip_RunCmd
             // 
@@ -233,7 +233,7 @@
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(294, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(290, 6);
             // 
             // btnMenStrip_CopyFilenameToClipboard
             // 
@@ -254,7 +254,7 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(294, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(290, 6);
             // 
             // btnMenStrip_OpenConfigFolder
             // 
@@ -266,7 +266,7 @@
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(294, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(290, 6);
             // 
             // btnMenStrip_DisconnectAllShares
             // 
@@ -458,7 +458,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 75);
+            this.label5.Location = new System.Drawing.Point(16, 75);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(111, 13);
             this.label5.TabIndex = 1;
@@ -529,11 +529,11 @@
             // tbUserPw
             // 
             this.tbUserPw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbUserPw.Location = new System.Drawing.Point(111, 47);
+            this.tbUserPw.Location = new System.Drawing.Point(133, 47);
             this.tbUserPw.MaxLength = 128;
             this.tbUserPw.Name = "tbUserPw";
             this.tbUserPw.PasswordChar = '•';
-            this.tbUserPw.Size = new System.Drawing.Size(212, 20);
+            this.tbUserPw.Size = new System.Drawing.Size(190, 20);
             this.tbUserPw.TabIndex = 1;
             this.tbUserPw.Text = "MyPassword";
             this.tbUserPw.TextChanged += new System.EventHandler(this.onGuiElementChange);
@@ -542,10 +542,10 @@
             // tbUserName
             // 
             this.tbUserName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbUserName.Location = new System.Drawing.Point(111, 22);
+            this.tbUserName.Location = new System.Drawing.Point(133, 22);
             this.tbUserName.MaxLength = 128;
             this.tbUserName.Name = "tbUserName";
-            this.tbUserName.Size = new System.Drawing.Size(212, 20);
+            this.tbUserName.Size = new System.Drawing.Size(190, 20);
             this.tbUserName.TabIndex = 0;
             this.tbUserName.Text = "testpersion@server.com";
             this.tbUserName.TextChanged += new System.EventHandler(this.onGuiElementChange);
@@ -556,18 +556,18 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(16, 50);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(78, 13);
+            this.label13.Size = new System.Drawing.Size(77, 13);
             this.label13.TabIndex = 1;
-            this.label13.Text = "User Password";
+            this.label13.Text = "User password";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(16, 25);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(58, 13);
+            this.label14.Size = new System.Drawing.Size(61, 13);
             this.label14.TabIndex = 1;
-            this.label14.Text = "Username:";
+            this.label14.Text = "User name:";
             // 
             // tbComment
             // 
